@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -83,9 +84,12 @@ public class JFTaskFlow extends JFrame {
 
         // Lista de tareas pendientes
         this.jTPListaTareas = new JTextPane();
-        this.jTPListaTareas.setBounds(192, 200, 896, 510);
-        this.jSPScrollLista = new JScrollPane(this.jTPListaTareas, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.jTPListaTareas.setBounds(128, 200, 896, 510);
+        this.jSPScrollLista = new JScrollPane(this.jTPListaTareas);
         this.jSPScrollLista.setBounds(this.jTPListaTareas.getBounds());
+        this.jSPScrollLista.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.jSPScrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        //this.jSPScrollLista.setBorder(null);
         this.jTPListaTareas.setEditable(false);
         this.jTPListaTareas.setFocusable(false);
         this.add(this.jSPScrollLista);
@@ -99,20 +103,16 @@ public class JFTaskFlow extends JFrame {
                 jLNombreApp.setSize(getContentPane().getWidth(), 80);
 
                 // Para la lista de tareas pendientes
-                if(getContentPane().getWidth() >= 1100){
-                    jTPListaTareas.setBounds((int)(getContentPane().getWidth()*0.15),
-                                             200,
-                                             (int)(getContentPane().getWidth()*0.7),
-                                             getContentPane().getHeight()-210);
-                    jSPScrollLista.setBounds(jTPListaTareas.getBounds());
-                }else{
-                    jTPListaTareas.setBounds((int)(getContentPane().getWidth()*0.1),
-                                             200,
-                                             (int)(getContentPane().getWidth()*0.8),
-                                             getContentPane().getHeight()-210);
-                    jSPScrollLista.setBounds(jTPListaTareas.getBounds());
-                }
-
+                jSPScrollLista.setBounds((int)(getContentPane().getWidth()*0.1),
+                                         200,
+                                         (int)(getContentPane().getWidth()*0.8),
+                                         getContentPane().getHeight()-210);
+                
+                jTPListaTareas.setBounds((int)(getContentPane().getWidth()*0.1),
+                                         200,
+                                         (int)(getContentPane().getWidth()*0.8),
+                                         getContentPane().getHeight()-210);                
+    
                 // Para la descripción de la lista
                 jLDescripcionLista.setBounds(jTPListaTareas.getX(), 150, jTPListaTareas.getWidth(), 40);
 
