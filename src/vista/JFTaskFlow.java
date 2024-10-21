@@ -40,8 +40,8 @@ public class JFTaskFlow extends JFrame {
         this.getContentPane().setPreferredSize(new Dimension(1280, 720));
         this.getContentPane().setMinimumSize(new Dimension(600, 600));
         this.setMinimumSize(new Dimension(600, 600));
-        this.setLayout(null);
-        
+        this.getContentPane().setLayout(null);
+
         initComponentes();
 
         this.setResizable(true);
@@ -85,13 +85,13 @@ public class JFTaskFlow extends JFrame {
         // Lista de tareas pendientes
         this.jTPListaTareas = new JTextPane();
         this.jTPListaTareas.setBounds(128, 200, 896, 510);
+        this.jTPListaTareas.setEditable(false);
+        this.jTPListaTareas.setFocusable(false);
         this.jSPScrollLista = new JScrollPane(this.jTPListaTareas);
         this.jSPScrollLista.setBounds(this.jTPListaTareas.getBounds());
         this.jSPScrollLista.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         this.jSPScrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //this.jSPScrollLista.setBorder(null);
-        this.jTPListaTareas.setEditable(false);
-        this.jTPListaTareas.setFocusable(false);
+        this.jSPScrollLista.setBorder(null);
         this.add(this.jSPScrollLista);
     }
 
@@ -108,16 +108,15 @@ public class JFTaskFlow extends JFrame {
                                          (int)(getContentPane().getWidth()*0.8),
                                          getContentPane().getHeight()-210);
                 
-                jTPListaTareas.setBounds((int)(getContentPane().getWidth()*0.1),
-                                         200,
+                jTPListaTareas.setBounds(0, 0,
                                          (int)(getContentPane().getWidth()*0.8),
                                          getContentPane().getHeight()-210);                
     
                 // Para la descripción de la lista
-                jLDescripcionLista.setBounds(jTPListaTareas.getX(), 150, jTPListaTareas.getWidth(), 40);
+                jLDescripcionLista.setBounds(jSPScrollLista.getX(), 150, jSPScrollLista.getWidth(), 40);
 
                 // Para el botón de agregar tarea
-                jBAgregar.setLocation(jTPListaTareas.getX()+jTPListaTareas.getWidth()-100, 150);
+                jBAgregar.setLocation(jSPScrollLista.getX()+jSPScrollLista.getWidth()-100, 150);
             }
         });    
     }
