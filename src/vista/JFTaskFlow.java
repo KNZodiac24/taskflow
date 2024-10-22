@@ -30,7 +30,7 @@ public class JFTaskFlow extends JFrame {
     private JTextPane jTPListaTareas;
     private JLabel jLDescripcionLista;
     private JScrollPane jSPScrollLista;
-    private JButton jBAgregar;
+    public JButton jBAgregar;
 
     public JFTaskFlow(){
 
