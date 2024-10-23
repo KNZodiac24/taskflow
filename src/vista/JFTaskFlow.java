@@ -58,7 +58,7 @@ public class JFTaskFlow extends JFrame {
         this.jLNombreApp.setBounds(0, 50, 1280, 80);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
-            File f = new File("resources/fuentes/RemachineScript.ttf");
+            File f = new File("rsc/fuentes/RemachineScript.ttf");
             Font fuente = Font.createFont(Font.TRUETYPE_FONT, f);
             ge.registerFont(fuente);
             this.jLNombreApp.setFont(new Font("Remachine Script Personal Use", Font.PLAIN, 100));

@@ -63,11 +63,11 @@ public class JDAgregarTarea extends JDialog {
         // Para agregar la fecha de culminación
         JLabel jLFechaCulminacion = new JLabel("Fecha de culminación:");
         jLFechaCulminacion.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
-        jLFechaCulminacion.setBounds(30, 310, 200, 25);
+        jLFechaCulminacion.setBounds(30, 310, 250, 25);
         this.add(jLFechaCulminacion);
 
         this.jTFFechaCulminacion = new JTextField("dd/mm/aaaa");
-        this.jTFFechaCulminacion.setBounds(230, 310, 240, 25);
+        this.jTFFechaCulminacion.setBounds(240, 310, 230, 25);
         this.jTFFechaCulminacion.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 16));
         this.jTFFechaCulminacion.setForeground(Color.GRAY);
         this.jTFFechaCulminacion.addFocusListener(new FocusAdapter() {
