@@ -15,7 +15,7 @@ public class TareaController implements ActionListener{
         this.frmTaskFlow = frmTaskFlow;
         this.frmAgregarTarea = frmAgregarTarea;
         this.frmTaskFlow.jBAgregar.addActionListener(this);
-        //this.frmAgregarTarea.jBAgregarTarea.addActionListener(this);
+        this.frmAgregarTarea.jBAgregarTarea.addActionListener(this);
     }
 
     @Override

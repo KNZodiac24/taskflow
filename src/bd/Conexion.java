@@ -5,15 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private final String base = "taskflow";
-    private final String user = "root";
-    private final String password = "root";
-    private final String url = "jdbc:mysql://127.0.0.1:3306/"+base;
-    private Connection con = null;
+    private static final String base = "taskflow";
+    private static final String user = "root";
+    private static final String password = "root";
+    private static final String url = "jdbc:mysql://127.0.0.1:3306/"+base;
+    private static Connection con = null;
     
-    public Connection getConexion(){
+    public static Connection getConexion(){
         try{
-            con = DriverManager.getConnection(this.url, this.user, this.password);
+            con = DriverManager.getConnection(url, user, password);
         }catch(SQLException e){
             System.out.println(e);
         }

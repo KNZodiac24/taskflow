@@ -5,13 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bd.Conexion.getConexion;
-
 public class UsuarioBD {
 
     public boolean registrarUsuario(String nombreUsuario, String nombrePreferido, String contrasenia){
         PreparedStatement ps = null;
-        Connection con = getConexion();
+        Connection con = Conexion.getConexion();
         String sql = "INSERT INTO USUARIO (NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA) "
                 + "VALUES (?,?,?)";
         try {
@@ -30,7 +28,7 @@ public class UsuarioBD {
     
     public boolean validarExistencia(String nombreUsuario, String contrasenia) {
         PreparedStatement ps = null;
-        Connection con = getConexion();
+        Connection con = Conexion.getConexion();
         ResultSet rs;
         String sql = "SELECT * FROM USUARIO WHERE NOMBRE_USUARIO = ? AND CONTRASENIA = ?";
         try {
