@@ -74,6 +74,11 @@ public class JPCrearCuenta extends JPanel{
             public void mouseExited(MouseEvent e){
                 jLRegresar.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
             }
+
+            @Override
+            public void mouseReleased(MouseEvent e){
+                jLRegresar.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
+            }
         });
         this.add(this.jLRegresar);
 

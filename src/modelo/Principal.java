@@ -1,5 +1,6 @@
 package modelo;
 
+import bd.UsuarioBD;
 import controlador.TareaController;
 import controlador.UsuarioController;
 import vista.JDAgregarTarea;
@@ -12,8 +13,9 @@ public class Principal {
         JFTaskFlow frmTaskFlow = new JFTaskFlow();
         JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
         TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea);
-        UsuarioController usuarioCtr = new UsuarioController(frmLogin);
+        UsuarioBD usuarioBD = new UsuarioBD(); 
+        UsuarioController usuarioCtr = new UsuarioController(frmLogin, usuarioBD);
 
-        frmLogin.mostrar();
+        frmTaskFlow.mostrar();
     }
 }

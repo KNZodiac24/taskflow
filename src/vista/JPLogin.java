@@ -106,6 +106,11 @@ public class JPLogin extends JPanel{
             public void mouseExited(MouseEvent e){
                 jLCrearCuenta.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
             }
+
+            @Override
+            public void mouseReleased(MouseEvent e){
+                jLCrearCuenta.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
+            }
         });
         this.add(this.jLCrearCuenta);
     }

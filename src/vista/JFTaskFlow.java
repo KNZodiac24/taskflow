@@ -61,16 +61,24 @@ public class JFTaskFlow extends JFrame {
             File f = new File("rsc/fuentes/RemachineScript.ttf");
             Font fuente = Font.createFont(Font.TRUETYPE_FONT, f);
             ge.registerFont(fuente);
-            this.jLNombreApp.setFont(new Font("Remachine Script Personal Use", Font.PLAIN, 100));
+
+            f = new File("rsc/fuentes/YouTubeSansMedium.otf");
+            fuente = Font.createFont(Font.TRUETYPE_FONT, f);
+            ge.registerFont(fuente);
+
+            f = new File("rsc/fuentes/YouTubeSansSemibold.otf");
+            fuente = Font.createFont(Font.TRUETYPE_FONT, f);
+            ge.registerFont(fuente);
         } catch (Exception e){
             System.out.println(e);
         }
+        this.jLNombreApp.setFont(new Font("Remachine Script Personal Use", Font.PLAIN, 100));
         this.add(this.jLNombreApp);
 
         // Descripción de la Lista
         this.jLDescripcionLista = new JLabel("Lista de tareas pendientes:");
         this.jLDescripcionLista.setBounds(192, 150, 896, 40);
-        this.jLDescripcionLista.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 20));
+        this.jLDescripcionLista.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
         this.jLDescripcionLista.setVerticalAlignment(SwingConstants.CENTER);
         this.jLDescripcionLista.setHorizontalAlignment(SwingConstants.LEFT);
         this.add(this.jLDescripcionLista);
@@ -79,7 +87,7 @@ public class JFTaskFlow extends JFrame {
         this.jBAgregar = new JButton("Agregar");
         this.jBAgregar.setBounds(988, 150, 100, 40);
         this.jBAgregar.setFocusable(false);
-        this.jBAgregar.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 16));
+        this.jBAgregar.setFont(new Font("YouTube Sans Semibold", Font.BOLD, 16));
         this.add(this.jBAgregar);
 
         // Lista de tareas pendientes
