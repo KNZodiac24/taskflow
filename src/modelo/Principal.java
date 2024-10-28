@@ -16,6 +16,6 @@ public class Principal {
         UsuarioBD usuarioBD = new UsuarioBD(); 
         UsuarioController usuarioCtr = new UsuarioController(frmLogin, usuarioBD);
 
-        frmTaskFlow.mostrar();
+        frmLogin.mostrar();
     }
 }
