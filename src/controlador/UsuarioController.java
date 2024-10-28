@@ -25,6 +25,7 @@ public class UsuarioController implements ActionListener{
             public void mouseClicked(MouseEvent e) {
                 frmLogin.remove(frmLogin.jPLogin);
                 frmLogin.setContentPane(frmLogin.jPCrearCuenta);
+                frmLogin.setTitle("Crear cuenta - TaskFlow");
                 frmLogin.revalidate();
             }
         });
@@ -35,6 +36,7 @@ public class UsuarioController implements ActionListener{
             public void mouseClicked(MouseEvent e){
                 frmLogin.remove(frmLogin.jPCrearCuenta);
                 frmLogin.setContentPane(frmLogin.jPLogin);
+                frmLogin.setTitle("Iniciar sesión - TaskFlow");
                 frmLogin.revalidate();
             }
         });

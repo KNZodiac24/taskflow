@@ -101,7 +101,7 @@ public class JPCrearCuenta extends JPanel{
         JLabel jLInfo = new JLabel("\u24d8");
         jLInfo.setBounds(230, 190, 25, 20);
         jLInfo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-        jLInfo.setToolTipText("Es el nombre con el que prefieres que te llamen");
+        jLInfo.setToolTipText("Es el nombre con el que te gusta que te llamen");
         this.add(jLInfo);
 
         this.jTFNuevoNombrePreferido = new JTextField();
@@ -128,13 +128,15 @@ public class JPCrearCuenta extends JPanel{
             @Override
             public void mouseEntered(MouseEvent e){
                 setImageLabel(jLVerContrasenia, "rsc/img/mostrar.png");
-                jPFNuevaContrasenia.setFont(new Font("YouTube Sans", Font.PLAIN, 20)); 
+                jPFNuevaContrasenia.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
+                jPFNuevaContrasenia.setEchoChar((char)0);               
             }
 
             @Override
             public void mouseExited(MouseEvent e){
                 setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
                 jPFNuevaContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
+                jPFNuevaContrasenia.setEchoChar('•');
             }
         });
         this.add(jLVerContrasenia);

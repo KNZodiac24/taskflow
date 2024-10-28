@@ -12,6 +12,7 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.InputStream;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,7 +49,8 @@ public class JFTaskFlow extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        this.setIconImage(new ImageIcon("rsc/img/icono.png").getImage());
+
         aplicarResponsive();
     } 
 

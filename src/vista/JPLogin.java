@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,6 +14,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -80,6 +83,27 @@ public class JPLogin extends JPanel{
         this.jPFContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(this.jPFContrasenia);
 
+        JLabel jLVerContrasenia = new JLabel();
+        jLVerContrasenia.setBounds(380, 290, 30, 30);
+        setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
+        jLVerContrasenia.setHorizontalAlignment(SwingConstants.CENTER);
+        jLVerContrasenia.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent e){
+                setImageLabel(jLVerContrasenia, "rsc/img/mostrar.png");
+                jPFContrasenia.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
+                jPFContrasenia.setEchoChar((char)0);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
+                jPFContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
+                jPFContrasenia.setEchoChar('•');
+            }
+        });
+        this.add(jLVerContrasenia);
+        
         //////////// Botón para iniciar sesión
         this.jBIniciarSesion = new JButton("Ingresar");
         this.jBIniciarSesion.setBounds(187, 350, 125, 50);
@@ -113,5 +137,11 @@ public class JPLogin extends JPanel{
             }
         });
         this.add(this.jLCrearCuenta);
+    }
+
+    private void setImageLabel(JLabel labelname, String root){
+        ImageIcon image = new ImageIcon(root);
+        Icon icon = new ImageIcon(image.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        labelname.setIcon(icon);
     }
 }
