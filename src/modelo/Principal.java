@@ -10,9 +10,6 @@ import vista.JFTaskFlow;
 public class Principal {
     public static void main(String[] args) {
         JFLogin frmLogin = new JFLogin();
-        JFTaskFlow frmTaskFlow = new JFTaskFlow();
-        JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
-        TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea);
         UsuarioBD usuarioBD = new UsuarioBD(); 
         UsuarioController usuarioCtr = new UsuarioController(frmLogin, usuarioBD);
 

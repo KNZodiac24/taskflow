@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class UsuarioBD {
 
     public boolean registrarUsuario(String nombreUsuario, String nombrePreferido, String contrasenia){
@@ -20,7 +22,7 @@ public class UsuarioBD {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.err.println(e + " No se pudo conectar");
+            JOptionPane.showMessageDialog(null, "Error al crear la cuenta", "Crear cuenta", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         

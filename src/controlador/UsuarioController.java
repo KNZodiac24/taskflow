@@ -9,7 +9,11 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 import bd.UsuarioBD;
+import controlador.TareaController;
+import modelo.Usuario;
+import vista.JDAgregarTarea;
 import vista.JFLogin;
+import vista.JFTaskFlow;
 import vista.JPCrearCuenta;
 
 public class UsuarioController implements ActionListener{
@@ -46,7 +50,21 @@ public class UsuarioController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // Si presionó en el botón de Ingresar
         if(e.getSource() == frmLogin.jPLogin.jBIniciarSesion){
-            System.out.println("crear cuenta");
+            String username = frmLogin.jPLogin.jTFUsername.getText();
+            String contrasenia = String.valueOf(frmLogin.jPLogin.jPFContrasenia.getPassword());
+        
+            if(usuarioBD.validarExistencia(username, contrasenia)){
+                Usuario usuarioActual = new Usuario();
+                usuarioActual.obtenerDatos(username);
+                JFTaskFlow frmTaskFlow = new JFTaskFlow(usuarioActual);
+                JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
+                TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea);
+                frmLogin.dispose();
+                frmTaskFlow.mostrar();
+            }else{
+                JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos.", "Inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                frmLogin.jPLogin.jTFUsername.requestFocus();
+            }
         }
 
         // Si presionó en el botón de Crear Cuenta

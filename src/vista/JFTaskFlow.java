@@ -26,14 +26,18 @@ import javax.swing.border.Border;
 
 import com.sun.tools.javac.Main;
 
+import modelo.Usuario;
+
 public class JFTaskFlow extends JFrame {
+    private JLabel jLMensajeBienvenida;
     private JLabel jLNombreApp;
     private JTextPane jTPListaTareas;
     private JLabel jLDescripcionLista;
     private JScrollPane jSPScrollLista;
     public JButton jBAgregar;
+    private Usuario usuarioActual;
 
-    public JFTaskFlow(){
+    public JFTaskFlow(Usuario usuarioActual){
 
         initEstilo();
 
@@ -43,6 +47,7 @@ public class JFTaskFlow extends JFrame {
         this.setMinimumSize(new Dimension(600, 600));
         this.getContentPane().setLayout(null);
 
+        this.usuarioActual = usuarioActual;
         initComponentes();
 
         this.setResizable(true);
@@ -55,9 +60,7 @@ public class JFTaskFlow extends JFrame {
     } 
 
     private void initComponentes(){
-        // Título con el nombre de la app
-        this.jLNombreApp = new JLabel("TaskFlow", SwingConstants.CENTER);
-        this.jLNombreApp.setBounds(0, 50, 1280, 80);
+        // Carga de fuentes necesarias
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
             File f = new File("rsc/fuentes/RemachineScript.ttf");
@@ -74,6 +77,16 @@ public class JFTaskFlow extends JFrame {
         } catch (Exception e){
             System.out.println(e);
         }
+
+        // Mensaje de bienvenida
+        this.jLMensajeBienvenida = new JLabel("Bienvenido/a, "+usuarioActual.getNombrePreferido(), SwingConstants.RIGHT);
+        this.jLMensajeBienvenida.setBounds(0, 15, 1250, 25);
+        this.jLMensajeBienvenida.setFont(new Font("YouTube Sans Semibold", Font.BOLD, 20));
+        this.add(this.jLMensajeBienvenida);
+
+        // Título con el nombre de la app
+        this.jLNombreApp = new JLabel("TaskFlow", SwingConstants.CENTER);
+        this.jLNombreApp.setBounds(0, 50, 1280, 80);
         this.jLNombreApp.setFont(new Font("Remachine Script Personal Use", Font.PLAIN, 100));
         this.add(this.jLNombreApp);
 
@@ -109,6 +122,9 @@ public class JFTaskFlow extends JFrame {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e){
+                // Para el mensaje de bienvenida            
+                jLMensajeBienvenida.setSize(getContentPane().getWidth()-30, 25);
+
                 // Para el título con el nombre
                 jLNombreApp.setSize(getContentPane().getWidth(), 80);
 

@@ -24,14 +24,14 @@ public class Usuario {
 		this.nombrePreferido = nombrePreferido;
 	}
 
-    public boolean obtenerDatos(){
+    public boolean obtenerDatos(String nombreUsr){
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
         ResultSet rs;
         String sql = "SELECT * FROM USUARIO WHERE NOMBRE_USUARIO = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, this.getNombreUsuario());
+            ps.setString(1, nombreUsr);
             rs = ps.executeQuery();
             if (rs.next()) {
                 // Llena el objeto Usuario con los datos obtenidos de la base de datos
