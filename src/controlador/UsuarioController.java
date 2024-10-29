@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
+import bd.TareaBD;
 import bd.UsuarioBD;
 import controlador.TareaController;
 import modelo.Usuario;
@@ -58,7 +59,8 @@ public class UsuarioController implements ActionListener{
                 usuarioActual.obtenerDatos(username);
                 JFTaskFlow frmTaskFlow = new JFTaskFlow(usuarioActual);
                 JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
-                TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea);
+                TareaBD tareaBD = new TareaBD();
+                TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea, tareaBD);
                 frmLogin.dispose();
                 frmTaskFlow.mostrar();
             }else{

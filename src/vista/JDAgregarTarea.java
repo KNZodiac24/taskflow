@@ -14,9 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class JDAgregarTarea extends JDialog {
-    private JTextField jTFNombreTarea;
-    private JTextArea jTADescripcionTarea;
-    private JTextField jTFFechaCulminacion;
+    public JTextField jTFNombreTarea;
+    public JTextArea jTADescripcionTarea;
+    public JTextField jTFFechaCulminacion;
     public JButton jBAgregarTarea;
 
     public JDAgregarTarea(){

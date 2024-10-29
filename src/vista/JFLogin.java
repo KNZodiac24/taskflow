@@ -20,7 +20,7 @@ public class JFLogin extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setIconImage(new ImageIcon("rsc/img/icono.png").getImage());   
+        this.setIconImage(new ImageIcon("rsc/img/logo.png").getImage());   
     }
 
     private void initComponentes(){

@@ -31,11 +31,12 @@ import modelo.Usuario;
 public class JFTaskFlow extends JFrame {
     private JLabel jLMensajeBienvenida;
     private JLabel jLNombreApp;
-    private JTextPane jTPListaTareas;
+    public JTextPane jTPListaTareas;
     private JLabel jLDescripcionLista;
-    private JScrollPane jSPScrollLista;
+    public JScrollPane jSPScrollLista;
     public JButton jBAgregar;
     private Usuario usuarioActual;
+    public JLabel jLListaSinElementos;
 
     public JFTaskFlow(Usuario usuarioActual){
 
@@ -54,7 +55,7 @@ public class JFTaskFlow extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setIconImage(new ImageIcon("rsc/img/icono.png").getImage());
+        this.setIconImage(new ImageIcon("rsc/img/logo.png").getImage());
 
         aplicarResponsive();
     } 
@@ -116,6 +117,14 @@ public class JFTaskFlow extends JFrame {
         this.jSPScrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.jSPScrollLista.setBorder(null);
         this.add(this.jSPScrollLista);
+    
+        // Mensaje cuando no hay elementos en la lista
+        this.jLListaSinElementos = new JLabel("No se han encontrado tareas pendientes.", SwingConstants.CENTER);
+        this.jLListaSinElementos.setBounds(0,(int)(this.jTPListaTareas.getHeight()/2)-20, this.jTPListaTareas.getWidth(), 40);
+        this.jLListaSinElementos.setFont(new Font("YouTube Sans Semibold", Font.BOLD, 30));
+        this.jLListaSinElementos.setForeground(Color.GRAY);
+        this.jLListaSinElementos.setVisible(false);
+        this.jTPListaTareas.add(this.jLListaSinElementos);
     }
 
     private void aplicarResponsive(){
@@ -143,6 +152,9 @@ public class JFTaskFlow extends JFrame {
 
                 // Para el botón de agregar tarea
                 jBAgregar.setLocation(jSPScrollLista.getX()+jSPScrollLista.getWidth()-100, 150);
+
+                // Para el mensaje de lista sin elementos
+                jLListaSinElementos.setBounds(0, (int)(jSPScrollLista.getHeight()/2)-20, jSPScrollLista.getWidth(), 40);
             }
         });    
     }
@@ -159,6 +171,10 @@ public class JFTaskFlow extends JFrame {
         } catch (IllegalAccessException e) {
             System.out.println(e);
         }
+    }
+
+    public Usuario getUsuarioActual(){
+        return this.usuarioActual;
     }
 
     public void mostrar(){
