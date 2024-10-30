@@ -70,18 +70,15 @@ public class TareaController implements ActionListener{
             frmTaskFlow.jLListaSinElementos.setVisible(true);
         }else{
             frmTaskFlow.jLListaSinElementos.setVisible(false);
-            ArrayList<JPTarea> listaTareasEnFrame = new ArrayList<JPTarea>();
 
-            for (Tarea tarea : listaTareas) listaTareasEnFrame.add(new JPTarea(tarea));
-            
-            int auxEspaciado = 0;
-            for (JPTarea panelTarea : listaTareasEnFrame) {
-                frmTaskFlow.jTPListaTareas.add(panelTarea);
-                panelTarea.aplicarResponsive(auxEspaciado);
-                auxEspaciado += 76;
+            frmTaskFlow.jTPListaTareas.setText("");
+
+            for (Tarea tarea : listaTareas){
+                JPTarea panelTarea = new JPTarea(tarea);
+                frmTaskFlow.jTPListaTareas.insertComponent(panelTarea);
+                panelTarea.aplicarResponsive();
             }
 
-            frmTaskFlow.jTPListaTareas.repaint();
         }
     }
 }

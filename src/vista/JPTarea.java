@@ -21,7 +21,7 @@ public class JPTarea extends JPanel {
     private Tarea tarea;
 
     public JPTarea(Tarea tarea){
-        this.setPreferredSize(new Dimension(897, 75));
+        this.setPreferredSize(new Dimension(1024, 75));
         this.setBackground(Color.WHITE);
         this.setLayout(null);
         this.tarea = tarea;
@@ -38,40 +38,40 @@ public class JPTarea extends JPanel {
 
         // Mostrar la descripción de la tarea
         this.jLDescripcion = new JLabel(this.tarea.getDescripcion(), SwingConstants.CENTER);
-        //this.jLDescripcion.setBounds(225, 8, 508, 60);
+        this.jLDescripcion.setBounds(225, 8, 508, 60);
         this.jLDescripcion.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
         this.add(this.jLDescripcion);
 
         // Mostrar la fecha de culminación
         this.jLFechaCulminacion = new JLabel(this.tarea.darFechaDeCulminacion(), SwingConstants.RIGHT);
-        //this.jLFechaCulminacion.setBounds(753, 8, 119, 60);
+        this.jLFechaCulminacion.setBounds(753, 8, 119, 60);
         this.jLFechaCulminacion.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
         this.add(this.jLFechaCulminacion);
 
         // Separador para distinguir los distintos elementos de la lista
         this.jSSeparador = new JSeparator(JSeparator.HORIZONTAL);
-        //this.jSSeparador.setBounds(10, 70, 877, 2);
+        this.jSSeparador.setBounds(10, 70, 877, 2);
         this.add(this.jSSeparador);
     }
 
-    public void aplicarResponsive(int auxEspaciado){
-        this.getParent().addComponentListener(new ComponentAdapter() {
+    public void aplicarResponsive(){
+        this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 // Para el panel como tal
-                setBounds(0, auxEspaciado, getParent().getWidth(), 75);
-                
+                setBounds(0, 0, getParent().getWidth(), 75);
+               
                 // Para el nombre de la tarea
-                jLNombreTarea.setSize((int)(getWidth()*0.2), 60);
+                jLNombreTarea.setBounds((int)(getWidth()*0.05), 8, (int)(getWidth()*0.15), 60);
 
                 // Para la descripción de la tarea
-                jLDescripcion.setBounds(jLNombreTarea.getX()+jLNombreTarea.getWidth()+20, 8, (int)(getWidth()*0.8), 60);
+                jLDescripcion.setBounds(jLNombreTarea.getX()+jLNombreTarea.getWidth()+(int)(getWidth()*0.05), 8, (int)(getWidth()*0.5), 60);
 
                 // Para la fecha de culminación
-                jLFechaCulminacion.setBounds(jLDescripcion.getX()+jLDescripcion.getWidth()+20, 8, (int)(getWidth()*0.2), 60);
+                jLFechaCulminacion.setBounds(jLDescripcion.getX()+jLDescripcion.getWidth()+(int)(getWidth()*0.05), 8, (int)(getWidth()*0.15), 60);
 
                 // Para el separador 
-                jSSeparador.setBounds(10, 70, getWidth()-10, 2);
+                jSSeparador.setBounds(10, 70, getWidth()-20, 2);
             }
         });
     }

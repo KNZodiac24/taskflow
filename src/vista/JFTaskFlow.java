@@ -22,7 +22,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 
 import com.sun.tools.javac.Main;
 
@@ -144,7 +143,7 @@ public class JFTaskFlow extends JFrame {
                                          getContentPane().getHeight()-210);
                 
                 jTPListaTareas.setBounds(0, 0,
-                                         (int)(getContentPane().getWidth()*0.8),
+                                         jSPScrollLista.getWidth(),
                                          getContentPane().getHeight()-210);                
     
                 // Para la descripción de la lista
