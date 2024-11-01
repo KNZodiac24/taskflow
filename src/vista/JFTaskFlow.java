@@ -46,6 +46,7 @@ public class JFTaskFlow extends JFrame {
         this.getContentPane().setMinimumSize(new Dimension(600, 600));
         this.setMinimumSize(new Dimension(600, 600));
         this.getContentPane().setLayout(null);
+        this.getContentPane().setBackground(Color.WHITE);
 
         this.usuarioActual = usuarioActual;
         initComponentes();
@@ -60,24 +61,6 @@ public class JFTaskFlow extends JFrame {
     } 
 
     private void initComponentes(){
-        // Carga de fuentes necesarias
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        try {
-            File f = new File("rsc/fuentes/RemachineScript.ttf");
-            Font fuente = Font.createFont(Font.TRUETYPE_FONT, f);
-            ge.registerFont(fuente);
-
-            f = new File("rsc/fuentes/YouTubeSansMedium.otf");
-            fuente = Font.createFont(Font.TRUETYPE_FONT, f);
-            ge.registerFont(fuente);
-
-            f = new File("rsc/fuentes/YouTubeSansSemibold.otf");
-            fuente = Font.createFont(Font.TRUETYPE_FONT, f);
-            ge.registerFont(fuente);
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
         // Mensaje de bienvenida
         this.jLMensajeBienvenida = new JLabel("Bienvenido/a, "+usuarioActual.getNombrePreferido(), SwingConstants.RIGHT);
         this.jLMensajeBienvenida.setBounds(0, 15, 1250, 25);

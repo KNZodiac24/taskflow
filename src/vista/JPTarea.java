@@ -1,10 +1,13 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,16 +20,16 @@ public class JPTarea extends JPanel {
     private JLabel jLNombreTarea;
     private JLabel jLDescripcion;
     private JLabel jLFechaCulminacion;
-    private JSeparator jSSeparador;
+    public JSeparator jSSeparador;
     private Tarea tarea;
 
     public JPTarea(Tarea tarea){
         this.setPreferredSize(new Dimension(1024, 75));
-        this.setBackground(Color.WHITE);
         this.setLayout(null);
         this.tarea = tarea;
 
         initComponentes();
+        aplicarEstilos();
     }
 
     private void initComponentes(){
@@ -37,7 +40,7 @@ public class JPTarea extends JPanel {
         this.add(this.jLNombreTarea);
 
         // Mostrar la descripción de la tarea
-        this.jLDescripcion = new JLabel(this.tarea.getDescripcion(), SwingConstants.CENTER);
+        this.jLDescripcion = new JLabel(this.tarea.getDescripcion());
         this.jLDescripcion.setBounds(225, 8, 508, 60);
         this.jLDescripcion.setFont(new Font("YouTube Sans", Font.PLAIN, 14));
         this.add(this.jLDescripcion);
@@ -71,9 +74,34 @@ public class JPTarea extends JPanel {
                 jLFechaCulminacion.setBounds(jLDescripcion.getX()+jLDescripcion.getWidth()+(int)(getWidth()*0.05), 8, (int)(getWidth()*0.15), 60);
 
                 // Para el separador 
-                jSSeparador.setBounds(10, 70, getWidth()-20, 2);
+                jSSeparador.setBounds(0, 73, getWidth(), 2);
             }
         });
     }
 
+    private void aplicarEstilos(){
+        this.setBackground(Color.WHITE);
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e){
+                setBackground(new Color(245, 245, 245));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                setBackground(Color.WHITE);
+            }
+        });
+    }
+
+    public void aplicarAcciones(){
+        this.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JDVerTarea frmVerTarea = new JDVerTarea(tarea);
+                frmVerTarea.mostrar();
+            } 
+        });
+    }
 }

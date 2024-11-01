@@ -54,4 +54,21 @@ public class TareaBD {
             return null;
         } 
     }
+
+    // TODO: Verificar eliminación de la bd
+    public boolean eliminarTarea(String nombreTarea, String nomUsr){
+        PreparedStatement ps = null;
+        Connection con = Conexion.getConexion();
+        String sql = "DELETE FROM TAREA WHERE NOMBRE_TAREA = ? AND NOM_USR = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombreTarea);
+            ps.setString(2, nomUsr);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la tarea.", "Eliminar tarea", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 } 

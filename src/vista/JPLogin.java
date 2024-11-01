@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class JPLogin extends JPanel{
     public JTextField jTFUsername;
@@ -70,6 +73,7 @@ public class JPLogin extends JPanel{
         this.jTFUsername = new JTextField();
         this.jTFUsername.setBounds(75, 195, 350, 40);
         this.jTFUsername.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
+        this.jTFUsername.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jTFUsername);
 
         //////////// Ingreso de contraseña
@@ -81,10 +85,11 @@ public class JPLogin extends JPanel{
         this.jPFContrasenia = new JPasswordField();
         this.jPFContrasenia.setBounds(75, 285, 298, 40);
         this.jPFContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.jPFContrasenia.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jPFContrasenia);
 
         JLabel jLVerContrasenia = new JLabel();
-        jLVerContrasenia.setBounds(380, 290, 30, 30);
+        jLVerContrasenia.setBounds(385, 290, 30, 30);
         setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
         jLVerContrasenia.setHorizontalAlignment(SwingConstants.CENTER);
         jLVerContrasenia.addMouseListener(new MouseAdapter(){

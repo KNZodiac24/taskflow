@@ -43,20 +43,6 @@ public class JPCrearCuenta extends JPanel{
     }
 
     private void initComponentes(){
-        //////////// Cargar las fuentes
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        try {
-            File f = new File("rsc/fuentes/YouTubeSansMedium.otf");
-            Font fuente = Font.createFont(Font.TRUETYPE_FONT, f);
-            ge.registerFont(fuente);
- 
-            f = new File("rsc/fuentes/YouTubeSansSemibold.otf");
-            fuente = Font.createFont(Font.TRUETYPE_FONT, f);
-            ge.registerFont(fuente);
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
         //////////// Opción para regresar al inicio de sesión
         this.jLRegresar = new JLabel("< Regresar");
         this.jLRegresar.setBounds(30, 25, 100, 20);
@@ -121,7 +107,7 @@ public class JPCrearCuenta extends JPanel{
         this.add(this.jPFNuevaContrasenia);
 
         JLabel jLVerContrasenia = new JLabel();
-        jLVerContrasenia.setBounds(380, 320, 30, 30);
+        jLVerContrasenia.setBounds(385, 320, 30, 30);
         setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
         jLVerContrasenia.setHorizontalAlignment(SwingConstants.CENTER);
         jLVerContrasenia.addMouseListener(new MouseAdapter(){

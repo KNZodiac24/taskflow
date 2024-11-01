@@ -1,6 +1,8 @@
 package utils;
 
 import java.util.regex.Pattern;
+
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,7 +54,7 @@ public class Fecha {
                 case "Sep" -> "09";
                 case "Oct" -> "10";
                 case "Nov" -> "11";
-                case "Dic" -> "12";
+                case "Dec" -> "12";
                 default -> null;
             };
             this.anio = partesFecha[5];
@@ -67,9 +69,18 @@ public class Fecha {
         String fechaYHoraActual = Clock.systemUTC().instant().toString();
         String soloFechaActual = fechaYHoraActual.split("T")[0];
         String[] partesFechaActual = soloFechaActual.split("-");
-        return Integer.parseInt(fechaAComparar.anio) >= Integer.parseInt(partesFechaActual[0]) &&
-               Integer.parseInt(fechaAComparar.mes) >= Integer.parseInt(partesFechaActual[1]) &&
-               Integer.parseInt(fechaAComparar.dia) >= Integer.parseInt(partesFechaActual[2]);
+
+        if(Integer.parseInt(fechaAComparar.anio) >= Integer.parseInt(partesFechaActual[0])){
+            if(Integer.parseInt(fechaAComparar.mes) >= Integer.parseInt(partesFechaActual[1])){
+                if(Integer.parseInt(fechaAComparar.dia) >= Integer.parseInt(partesFechaActual[2])){
+                    return true;
+                }
+                return true;
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public String getFechaConFormatoValidoEnBD(){

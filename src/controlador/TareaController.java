@@ -28,7 +28,7 @@ public class TareaController implements ActionListener{
         this.tareaBD = tareaBD;
         this.frmTaskFlow.jBAgregar.addActionListener(this);
         this.frmAgregarTarea.jBAgregarTarea.addActionListener(this);
-        cargarListaTareas(this.frmTaskFlow.getUsuarioActual().getNombreUsuario());
+        cargarListaTareas();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class TareaController implements ActionListener{
                     if(tareaBD.registrarTarea(tarea)){
                         JOptionPane.showMessageDialog(null, "¡Se agregó correctamente la tarea!", "Agregar tarea", JOptionPane.INFORMATION_MESSAGE);
                         frmAgregarTarea.dispose();
-                        cargarListaTareas(frmTaskFlow.getUsuarioActual().getNombreUsuario());
+                        cargarListaTareas();
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "La fecha de culminación debe ser mayor a la fecha actual.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
@@ -63,8 +63,8 @@ public class TareaController implements ActionListener{
         }
     }
 
-    private void cargarListaTareas(String nomUsr){
-        ArrayList<Tarea> listaTareas = tareaBD.traerListaTareasUsuario(nomUsr);
+    public void cargarListaTareas(){
+        ArrayList<Tarea> listaTareas = tareaBD.traerListaTareasUsuario(frmTaskFlow.getUsuarioActual().getNombreUsuario());
 
         if(listaTareas == null){
             frmTaskFlow.jLListaSinElementos.setVisible(true);
@@ -77,8 +77,10 @@ public class TareaController implements ActionListener{
                 JPTarea panelTarea = new JPTarea(tarea);
                 frmTaskFlow.jTPListaTareas.insertComponent(panelTarea);
                 panelTarea.aplicarResponsive();
+                panelTarea.aplicarAcciones();
             }
 
         }
     }
+
 }
