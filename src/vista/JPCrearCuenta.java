@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
@@ -77,6 +78,7 @@ public class JPCrearCuenta extends JPanel{
         this.jTFNuevoUsername = new JTextField();
         this.jTFNuevoUsername.setBounds(75, 135, 350, 40);
         this.jTFNuevoUsername.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
+        this.jTFNuevoUsername.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jTFNuevoUsername);
 
         //////////// Ingreso de nombre preferido
@@ -93,6 +95,7 @@ public class JPCrearCuenta extends JPanel{
         this.jTFNuevoNombrePreferido = new JTextField();
         this.jTFNuevoNombrePreferido.setBounds(75, 225, 350, 40);
         this.jTFNuevoNombrePreferido.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
+        this.jTFNuevoNombrePreferido.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jTFNuevoNombrePreferido);
 
         //////////// Ingreso de nueva contraseña
@@ -104,6 +107,7 @@ public class JPCrearCuenta extends JPanel{
         this.jPFNuevaContrasenia = new JPasswordField();
         this.jPFNuevaContrasenia.setBounds(75, 315, 298, 40);
         this.jPFNuevaContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
+        this.jPFNuevaContrasenia.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jPFNuevaContrasenia);
 
         JLabel jLVerContrasenia = new JLabel();

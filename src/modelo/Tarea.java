@@ -1,12 +1,13 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Tarea {
     private String nombre;
     private String descripcion;
     private Date fechaCulminacion;
-    private Date fechaYHoraCreacion;
+    private Timestamp fechaYHoraCreacion;
     private String nomUsr;
 
     public Tarea(String nombre, String descripcion, Date fechaCulminacion, String nomUsr){
@@ -16,7 +17,7 @@ public class Tarea {
         this.nomUsr = nomUsr;
     }  
 
-    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Date fechaYHoraCreacion, String nomUsr){
+    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Timestamp fechaYHoraCreacion, String nomUsr){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCulminacion = fechaCulminacion;
@@ -56,8 +57,12 @@ public class Tarea {
         this.nomUsr = nomUsr;
     }
 
-    public void setFechaYHoraCreacion(Date fechaYHoraCreacion){
+    public void setFechaYHoraCreacion(Timestamp fechaYHoraCreacion){
         this.fechaYHoraCreacion = fechaYHoraCreacion;
+    }
+
+    public Timestamp getFechaYHoraCreacion(){
+        return fechaYHoraCreacion;
     }
 
     public String darFechaDeCulminacion(){

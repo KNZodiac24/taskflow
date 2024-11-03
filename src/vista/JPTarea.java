@@ -15,6 +15,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import modelo.Tarea;
+import utils.Fecha;
 
 public class JPTarea extends JPanel {
     private JLabel jLNombreTarea;
@@ -22,6 +23,7 @@ public class JPTarea extends JPanel {
     private JLabel jLFechaCulminacion;
     public JSeparator jSSeparador;
     private Tarea tarea;
+    private boolean haPasadoUnMinuto;
 
     public JPTarea(Tarea tarea){
         this.setPreferredSize(new Dimension(1024, 75));
@@ -79,18 +81,25 @@ public class JPTarea extends JPanel {
         });
     }
 
-    private void aplicarEstilos(){
-        this.setBackground(Color.WHITE);
+    private void aplicarEstilos(){ 
+        // Verificamos si la tarea fue recién creada para destacarla
+        if(Fecha.haPasadoUnMinuto(this.tarea.getFechaYHoraCreacion())){
+            this.setBackground(Color.WHITE);
+        }else{
+            this.setBackground(new Color(242, 240, 90));
+        }
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e){
-                setBackground(new Color(245, 245, 245));
+                if(Fecha.haPasadoUnMinuto(tarea.getFechaYHoraCreacion())) setBackground(new Color(245, 245, 245));
+                else setBackground(new Color(201, 200, 131));
             }
 
             @Override
             public void mouseExited(MouseEvent e){
-                setBackground(Color.WHITE);
+                if (Fecha.haPasadoUnMinuto(tarea.getFechaYHoraCreacion())) setBackground(Color.WHITE);
+                else setBackground(new Color(242, 240, 90));
             }
         });
     }

@@ -6,9 +6,13 @@ import java.util.regex.Pattern;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 
 
@@ -69,25 +73,45 @@ public class Fecha {
         }
     }
 
-    public static boolean verificarFechaMayorALaActual(Fecha fechaAComparar){
-        String fechaYHoraActual = Clock.systemUTC().instant().toString();
-        String soloFechaActual = fechaYHoraActual.split("T")[0];
-        String[] partesFechaActual = soloFechaActual.split("-");
-
-        if(Integer.parseInt(fechaAComparar.anio) >= Integer.parseInt(partesFechaActual[0])){
-            if(Integer.parseInt(fechaAComparar.mes) >= Integer.parseInt(partesFechaActual[1])){
-                if(Integer.parseInt(fechaAComparar.dia) >= Integer.parseInt(partesFechaActual[2])){
-                    return true;
-                }
-                return true;
-            }
-            return true;
+    public static int verificarFechaMayorALaActual(String fechaAComparar){
+        Date fechaActual = new Date();
+        Date fechaComparar = null;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato.setLenient(false);
+        
+        try {
+            fechaComparar = formato.parse(fechaAComparar);
+        }catch (ParseException e){
+            System.out.println(e);
         }
 
-        return false;
+        fechaActual = removerTiempo(fechaActual);
+
+        return fechaComparar.compareTo(fechaActual);
+    }
+
+    private static Date removerTiempo(Date fechaYHora) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaYHora);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    public static boolean haPasadoUnMinuto(Date fechaDeCreacion){
+        long diferenciaEnMillis = new Date().getTime() - fechaDeCreacion.getTime();
+        
+        return diferenciaEnMillis > 60000;
     }
 
     public String getFechaConFormatoValidoEnBD(){
         return this.anio + "-" + this.mes + "-" + this.dia;  
+    }
+
+    @Override
+    public String toString(){
+        return this.dia + "/" + this.mes + "/" + this.anio;
     }
 }

@@ -48,7 +48,7 @@ public class TareaBD {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getDate("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
             }
 
             if(listaTareasUsuario.isEmpty()) return null;
@@ -73,7 +73,7 @@ public class TareaBD {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getDate("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
             }
 
             if(listaTareasUsuario.isEmpty()) return null;

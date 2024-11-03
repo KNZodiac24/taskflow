@@ -45,8 +45,9 @@ public class TareaController implements ActionListener{
             String nombreTarea = frmAgregarTarea.jTFNombreTarea.getText();
             String descripcionTarea = frmAgregarTarea.jTADescripcionTarea.getText();
             Fecha fechaTemp = new Fecha(frmAgregarTarea.jTFFechaCulminacion.getText());
+
             if (fechaTemp.esFechaValida()){
-                if(Fecha.verificarFechaMayorALaActual(fechaTemp)){
+                if(Fecha.verificarFechaMayorALaActual(fechaTemp.toString()) >= 0){
                     Date fechaCulminacionTarea = Date.valueOf(fechaTemp.getFechaConFormatoValidoEnBD());
                     Tarea tarea = new Tarea(nombreTarea, descripcionTarea, fechaCulminacionTarea, frmTaskFlow.getUsuarioActual().getNombreUsuario());
                 
@@ -78,9 +79,8 @@ public class TareaController implements ActionListener{
         else{
             JDRangoFechas frmSeleccionfechas = new JDRangoFechas();
             Object[] rangoFechas = frmSeleccionfechas.mostrar();
-            if((boolean)rangoFechas[0]){
-                listaTareas = tareaBD.traerListaTareasUsuarioPorRangoFechas(frmTaskFlow.getUsuarioActual().getNombreUsuario(), (String)rangoFechas[1], (String)rangoFechas[2]);
-            }else{
+            if((boolean)rangoFechas[0]) listaTareas = tareaBD.traerListaTareasUsuarioPorRangoFechas(frmTaskFlow.getUsuarioActual().getNombreUsuario(), (String)rangoFechas[1], (String)rangoFechas[2]);
+            else{
                 listaTareas = null;
             }
         }

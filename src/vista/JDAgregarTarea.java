@@ -94,15 +94,6 @@ public class JDAgregarTarea extends JDialog {
                 }
             }
         });
-        // TODO: Limitar a 10 el número máximo de caracteres
-        //this.jTFFechaCulminacion.addKeyListener(new KeyAdapter() {
-        //    @Override
-        //    public void keyPressed(KeyEvent e) {
-        //        if(jTFFechaCulminacion.getText().length() > 9){
-        //            jTFFechaCulminacion.setText(jTFFechaCulminacion.getText().substring(0, 9));
-        //        }
-        //    }
-        //});
         this.add(this.jTFFechaCulminacion);
 
         // Para el botón de agregar tarea
