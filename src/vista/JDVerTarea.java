@@ -75,7 +75,7 @@ public class JDVerTarea extends JDialog implements ActionListener {
 
         //////////// Botón para eliminar la tarea
         this.jBEliminarTarea = new JButton("Eliminar tarea");
-        this.jBEliminarTarea.setBounds(0, 310, 175, 40);
+        this.jBEliminarTarea.setBounds(390, 320, 175, 40);
         this.jBEliminarTarea.setFont(new Font("YouTube Sans", Font.PLAIN, 24));
         this.jBEliminarTarea.setForeground(Color.RED);
         this.jBEliminarTarea.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
@@ -92,8 +92,7 @@ public class JDVerTarea extends JDialog implements ActionListener {
                 if(tareaBD.eliminarTarea(this.tarea.getNombre(), this.tarea.getNomUsr())){
                     JOptionPane.showMessageDialog(null, "Se ha eliminado la tarea exitosamente.", "Eliminar tarea", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                    // TODO: Encontrar forma de cargar la lista de la ventana principal desde aquí
-                    tareaCtr.cargarListaTareas();
+                    TareaController.cargarListaTareas();
                 } 
             }
         }

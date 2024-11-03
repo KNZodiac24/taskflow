@@ -32,19 +32,23 @@ public class TareaBD {
         
     }
 
-    public ArrayList<Tarea> traerListaTareasUsuario(String nomUsr){
+    public ArrayList<Tarea> traerListaTareasUsuario(String nomUsr, int criterio){
         ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
         ResultSet rs;
-        String sql = "SELECT * FROM TAREA WHERE NOM_USR = ?";
+        String sql = switch(criterio){ // 0: Fecha (ascendente), 1: Fecha (descendente)
+            case 0 -> "SELECT * FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION ASC";
+            case 1 -> "SELECT * FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION DESC";
+            default -> null;
+        };
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nomUsr);
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getDate("FECHA_HORA_CREACION")));
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getDate("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
             }
 
             if(listaTareasUsuario.isEmpty()) return null;
@@ -55,7 +59,31 @@ public class TareaBD {
         } 
     }
 
-    // TODO: Verificar eliminación de la bd
+    public ArrayList<Tarea> traerListaTareasUsuarioPorRangoFechas(String nomUsr, String fechaInicio, String fechaFin){
+        ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
+        PreparedStatement ps = null;
+        Connection con = Conexion.getConexion(); 
+        ResultSet rs;
+        String sql = "SELECT * FROM TAREA WHERE NOM_USR = ? AND FECHA_CULMINACION BETWEEN ? AND ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nomUsr);
+            ps.setString(2, fechaInicio);
+            ps.setString(3, fechaFin);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getDate("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
+            }
+
+            if(listaTareasUsuario.isEmpty()) return null;
+            else return listaTareasUsuario;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo traer la lista de tareas.", "TaskFlow", JOptionPane.ERROR_MESSAGE);
+            return null;
+        } 
+    }
+
     public boolean eliminarTarea(String nombreTarea, String nomUsr){
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
@@ -64,7 +92,7 @@ public class TareaBD {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombreTarea);
             ps.setString(2, nomUsr);
-            ps.execute();
+            ps.executeUpdate();
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la tarea.", "Eliminar tarea", JOptionPane.ERROR_MESSAGE);

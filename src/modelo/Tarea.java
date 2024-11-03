@@ -16,11 +16,12 @@ public class Tarea {
         this.nomUsr = nomUsr;
     }  
 
-    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Date fechaYHoraCreacion){
+    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Date fechaYHoraCreacion, String nomUsr){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCulminacion = fechaCulminacion;
         this.fechaYHoraCreacion = fechaYHoraCreacion;
+        this.nomUsr = nomUsr;
     }
 
 	public String getNombre() {

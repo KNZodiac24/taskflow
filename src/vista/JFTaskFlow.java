@@ -12,8 +12,10 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.InputStream;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -22,8 +24,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import com.sun.tools.javac.Main;
 
 import modelo.Usuario;
 
@@ -36,6 +36,7 @@ public class JFTaskFlow extends JFrame {
     public JButton jBAgregar;
     private Usuario usuarioActual;
     public JLabel jLListaSinElementos;
+    public JComboBox<String> jCBOrdenLista;
 
     public JFTaskFlow(Usuario usuarioActual){
 
@@ -75,11 +76,21 @@ public class JFTaskFlow extends JFrame {
 
         // Descripción de la Lista
         this.jLDescripcionLista = new JLabel("Lista de tareas pendientes:");
-        this.jLDescripcionLista.setBounds(192, 150, 896, 40);
+        this.jLDescripcionLista.setBounds(192, 150, 225, 40);
         this.jLDescripcionLista.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
         this.jLDescripcionLista.setVerticalAlignment(SwingConstants.CENTER);
         this.jLDescripcionLista.setHorizontalAlignment(SwingConstants.LEFT);
         this.add(this.jLDescripcionLista);
+
+        // Ordenar la lista
+        this.jCBOrdenLista = new JComboBox<String>();
+        this.jCBOrdenLista.addItem("Fecha (ascendente)");
+        this.jCBOrdenLista.addItem("Fecha (descendente)");
+        this.jCBOrdenLista.addItem("Rango de fechas");
+        this.jCBOrdenLista.setBounds(425, 150, 155, 40);
+        this.jCBOrdenLista.setFocusable(false);
+        this.jCBOrdenLista.setFont(new Font("YouTube Sans", Font.PLAIN, 15));
+        this.add(this.jCBOrdenLista);
 
         // Botón para agregar tareas
         this.jBAgregar = new JButton("Agregar");
@@ -130,7 +141,10 @@ public class JFTaskFlow extends JFrame {
                                          getContentPane().getHeight()-210);                
     
                 // Para la descripción de la lista
-                jLDescripcionLista.setBounds(jSPScrollLista.getX(), 150, jSPScrollLista.getWidth(), 40);
+                jLDescripcionLista.setBounds(jSPScrollLista.getX(), 150, 225, 40);
+
+                // Para el criterio de ordenación
+                jCBOrdenLista.setLocation(jLDescripcionLista.getX()+jLDescripcionLista.getWidth()+5, 150);
 
                 // Para el botón de agregar tarea
                 jBAgregar.setLocation(jSPScrollLista.getX()+jSPScrollLista.getWidth()-100, 150);

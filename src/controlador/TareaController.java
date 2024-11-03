@@ -13,14 +13,15 @@ import bd.TareaBD;
 import modelo.Tarea;
 import utils.Fecha;
 import vista.JDAgregarTarea;
+import vista.JDRangoFechas;
 import vista.JFTaskFlow;
 import vista.JPTarea;
 
 public class TareaController implements ActionListener{
     
-    private JFTaskFlow frmTaskFlow;
+    private static JFTaskFlow frmTaskFlow;
     private JDAgregarTarea frmAgregarTarea;
-    private TareaBD tareaBD;
+    private static TareaBD tareaBD;
 
     public TareaController(JFTaskFlow frmTaskFlow, JDAgregarTarea frmAgregarTarea, TareaBD tareaBD){
         this.frmTaskFlow = frmTaskFlow;
@@ -28,6 +29,7 @@ public class TareaController implements ActionListener{
         this.tareaBD = tareaBD;
         this.frmTaskFlow.jBAgregar.addActionListener(this);
         this.frmAgregarTarea.jBAgregarTarea.addActionListener(this);
+        this.frmTaskFlow.jCBOrdenLista.addActionListener(this);
         cargarListaTareas();
     }
 
@@ -61,17 +63,29 @@ public class TareaController implements ActionListener{
             }
 
         }
+
+        // Si se presiona en alguna opción del comboBox
+        if(e.getSource() == frmTaskFlow.jCBOrdenLista){
+            cargarListaTareas();
+        }
     }
 
-    public void cargarListaTareas(){
-        ArrayList<Tarea> listaTareas = tareaBD.traerListaTareasUsuario(frmTaskFlow.getUsuarioActual().getNombreUsuario());
-
+    public static void cargarListaTareas(){
+        ArrayList<Tarea> listaTareas = new ArrayList<Tarea>(); 
+        int criterio = frmTaskFlow.jCBOrdenLista.getSelectedIndex();
+        
+        if(criterio < 2) listaTareas = tareaBD.traerListaTareasUsuario(frmTaskFlow.getUsuarioActual().getNombreUsuario(), criterio);
+        else{
+            JDRangoFechas frmSeleccionfechas = new JDRangoFechas();
+            frmSeleccionfechas.mostrar();
+        }
+        
         if(listaTareas == null){
+            frmTaskFlow.jTPListaTareas.setText("");
             frmTaskFlow.jLListaSinElementos.setVisible(true);
         }else{
-            frmTaskFlow.jLListaSinElementos.setVisible(false);
-
             frmTaskFlow.jTPListaTareas.setText("");
+            frmTaskFlow.jLListaSinElementos.setVisible(false);
 
             for (Tarea tarea : listaTareas){
                 JPTarea panelTarea = new JPTarea(tarea);
