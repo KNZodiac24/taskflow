@@ -77,7 +77,12 @@ public class TareaController implements ActionListener{
         if(criterio < 2) listaTareas = tareaBD.traerListaTareasUsuario(frmTaskFlow.getUsuarioActual().getNombreUsuario(), criterio);
         else{
             JDRangoFechas frmSeleccionfechas = new JDRangoFechas();
-            frmSeleccionfechas.mostrar();
+            Object[] rangoFechas = frmSeleccionfechas.mostrar();
+            if((boolean)rangoFechas[0]){
+                listaTareas = tareaBD.traerListaTareasUsuarioPorRangoFechas(frmTaskFlow.getUsuarioActual().getNombreUsuario(), (String)rangoFechas[1], (String)rangoFechas[2]);
+            }else{
+                listaTareas = null;
+            }
         }
         
         if(listaTareas == null){

@@ -32,6 +32,10 @@ public class Fecha {
             return false; // Formato incorrecto
         }
 
+        return rellenarFecha();
+    }
+
+    public boolean rellenarFecha(){
         // Ahora verifica la validez de la fecha
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         formatoFecha.setLenient(false); // Establecemos a false para que lance excepción en fechas inválidas

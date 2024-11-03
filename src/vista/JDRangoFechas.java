@@ -15,12 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import controlador.TareaController;
 import utils.Fecha;
 
 public class JDRangoFechas extends JDialog implements ActionListener {
     public JTextField jTFFechaInicio;
     public JTextField jTFFechaFin;
     public JButton jBAceptarRango;
+    private boolean esRangoCorrecto;
 
     public JDRangoFechas(){
         this.setTitle("Seleccionar rango de fechas");
@@ -103,6 +105,7 @@ public class JDRangoFechas extends JDialog implements ActionListener {
         this.jBAceptarRango.setBounds(75, 105, 100, 30);
         this.jBAceptarRango.setFont(new Font("YouTube Sans", Font.PLAIN, 16));
         this.jBAceptarRango.setFocusable(false);
+        this.jBAceptarRango.addActionListener(this);
         this.add(this.jBAceptarRango);
     }
 
@@ -112,14 +115,30 @@ public class JDRangoFechas extends JDialog implements ActionListener {
             Fecha fechaInicio = new Fecha(this.jTFFechaInicio.getText());
             Fecha fechaFin = new Fecha(this.jTFFechaFin.getText());
             if(fechaInicio.esFechaValida() && fechaFin.esFechaValida()){
-                TareaController.cargarListaTareas();
+                this.esRangoCorrecto = true;
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Formato de fecha inválida.", "Seleccionar rango de fechas", JOptionPane.ERROR_MESSAGE);
+                this.esRangoCorrecto = false;
+                this.dispose();
             }
         }
     }
 
-    public void mostrar(){
+    private boolean esRangoCorrecto(){
+        return this.esRangoCorrecto;
+    }
+
+    private String[] obtenerFechas(){
+        Fecha fechaInicio = new Fecha(this.jTFFechaInicio.getText());
+        Fecha fechaFin = new Fecha(this.jTFFechaFin.getText());
+        fechaInicio.rellenarFecha();
+        fechaFin.rellenarFecha();
+        return new String[]{fechaInicio.getFechaConFormatoValidoEnBD(), fechaFin.getFechaConFormatoValidoEnBD()};
+    }
+
+    public Object[] mostrar(){
         this.setVisible(true);
+        return new Object[]{esRangoCorrecto(), obtenerFechas()[0], obtenerFechas()[1]};
     }
 }
