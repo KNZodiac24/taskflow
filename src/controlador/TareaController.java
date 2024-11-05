@@ -45,22 +45,33 @@ public class TareaController implements ActionListener{
             String nombreTarea = frmAgregarTarea.jTFNombreTarea.getText();
             String descripcionTarea = frmAgregarTarea.jTADescripcionTarea.getText();
             Fecha fechaTemp = new Fecha(frmAgregarTarea.jTFFechaCulminacion.getText());
-
-            if (fechaTemp.esFechaValida()){
-                if(Fecha.verificarFechaMayorALaActual(fechaTemp.toString()) >= 0){
-                    Date fechaCulminacionTarea = Date.valueOf(fechaTemp.getFechaConFormatoValidoEnBD());
-                    Tarea tarea = new Tarea(nombreTarea, descripcionTarea, fechaCulminacionTarea, frmTaskFlow.getUsuarioActual().getNombreUsuario());
-                
-                    if(tareaBD.registrarTarea(tarea)){
-                        JOptionPane.showMessageDialog(null, "¡Se agregó correctamente la tarea!", "Agregar tarea", JOptionPane.INFORMATION_MESSAGE);
-                        frmAgregarTarea.dispose();
-                        cargarListaTareas();
+            if(!nombreTarea.isBlank() && !nombreTarea.isEmpty() && !descripcionTarea.isBlank() && !descripcionTarea.isEmpty()){
+                if(nombreTarea.length() <= 30){
+                    if(descripcionTarea.length() <= 200){
+                        if (fechaTemp.esFechaValida()){
+                            if(Fecha.verificarFechaMayorALaActual(fechaTemp.toString()) >= 0){
+                                Date fechaCulminacionTarea = Date.valueOf(fechaTemp.getFechaConFormatoValidoEnBD());
+                                Tarea tarea = new Tarea(nombreTarea, descripcionTarea, fechaCulminacionTarea, frmTaskFlow.getUsuarioActual().getNombreUsuario());
+                            
+                                if(tareaBD.registrarTarea(tarea)){
+                                    JOptionPane.showMessageDialog(null, "¡Se agregó correctamente la tarea!", "Agregar tarea", JOptionPane.INFORMATION_MESSAGE);
+                                    frmAgregarTarea.dispose();
+                                    cargarListaTareas();
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(null, "La fecha de culminación debe ser mayor a la fecha actual.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Formato de fecha inválida.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "La descripción de la tarea debe ser de máximo 200 caracteres.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null, "La fecha de culminación debe ser mayor a la fecha actual.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El nombre de la tarea debe ser de máximo 30 caracteres.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                JOptionPane.showMessageDialog(null, "Formato de fecha inválida.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, completar todos los campos.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
             }
 
         }

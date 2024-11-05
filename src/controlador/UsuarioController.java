@@ -75,20 +75,28 @@ public class UsuarioController implements ActionListener{
             String nuevoNombrePreferido = frmLogin.jPCrearCuenta.jTFNuevoNombrePreferido.getText();
             String nuevaContrasenia = String.valueOf(frmLogin.jPCrearCuenta.jPFNuevaContrasenia.getPassword());
         
-            if(usuarioBD.registrarUsuario(nuevoUsername, nuevoNombrePreferido, nuevaContrasenia)){
-                JOptionPane.showMessageDialog(null, "¡Creación de cuenta exitosa!", "Creación de cuenta", JOptionPane.INFORMATION_MESSAGE);
-                frmLogin.jPCrearCuenta.jTFNuevoUsername.setText("");
-                frmLogin.jPCrearCuenta.jTFNuevoNombrePreferido.setText("");
-                frmLogin.jPCrearCuenta.jPFNuevaContrasenia.setText("");
-                frmLogin.remove(frmLogin.jPCrearCuenta);
-                frmLogin.setContentPane(frmLogin.jPLogin);
-                frmLogin.revalidate();
+            if(!nuevoUsername.isBlank() && !nuevoUsername.isEmpty() && !nuevoNombrePreferido.isBlank() && !nuevoNombrePreferido.isEmpty() && !nuevaContrasenia.isBlank() && !nuevaContrasenia.isEmpty()){
+                if(nuevoUsername.length() <= 30 && nuevoNombrePreferido.length() <= 30 && nuevaContrasenia.length() <= 30){
+                    if(usuarioBD.registrarUsuario(nuevoUsername, nuevoNombrePreferido, nuevaContrasenia)){
+                        JOptionPane.showMessageDialog(null, "¡Creación de cuenta exitosa!", "Creación de cuenta", JOptionPane.INFORMATION_MESSAGE);
+                        frmLogin.jPCrearCuenta.jTFNuevoUsername.setText("");
+                        frmLogin.jPCrearCuenta.jTFNuevoNombrePreferido.setText("");
+                        frmLogin.jPCrearCuenta.jPFNuevaContrasenia.setText("");
+                        frmLogin.remove(frmLogin.jPCrearCuenta);
+                        frmLogin.setContentPane(frmLogin.jPLogin);
+                        frmLogin.revalidate();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta.", "Creación de cuenta", JOptionPane.ERROR_MESSAGE);
+                        frmLogin.jPCrearCuenta.jTFNuevoUsername.setText("");
+                        frmLogin.jPCrearCuenta.jTFNuevoNombrePreferido.setText("");
+                        frmLogin.jPCrearCuenta.jPFNuevaContrasenia.setText("");
+                        frmLogin.jPCrearCuenta.jTFNuevoUsername.requestFocus();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Los valores de los campos deben ser de máximo 30 caracteres.", "Creación de cuenta", JOptionPane.ERROR_MESSAGE);
+                }
             }else{
-                JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta.", "Creación de cuenta", JOptionPane.ERROR_MESSAGE);
-                frmLogin.jPCrearCuenta.jTFNuevoUsername.setText("");
-                frmLogin.jPCrearCuenta.jTFNuevoNombrePreferido.setText("");
-                frmLogin.jPCrearCuenta.jPFNuevaContrasenia.setText("");
-                frmLogin.jPCrearCuenta.jTFNuevoUsername.requestFocus();
+                JOptionPane.showMessageDialog(null, "Por favor, rellenar todos los campos", "Creación de cuenta", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
