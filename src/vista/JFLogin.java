@@ -1,15 +1,21 @@
 package vista;
 
 import java.awt.Dimension;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import bd.UsuarioBD;
+import controlador.UsuarioController;
+import vista.JPSplash;
+
 public class JFLogin extends JFrame {
     public JPLogin jPLogin;
     public JPCrearCuenta jPCrearCuenta;
+    public JPSplash jPSplash;
 
     public JFLogin(){
         this.setTitle("Iniciar sesión - TaskFlow");
@@ -20,16 +26,26 @@ public class JFLogin extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setIconImage(new ImageIcon("rsc/img/logo.png").getImage());   
+        this.setIconImage(new ImageIcon(System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"img"+File.separator+"logo.png").getImage());   
     }
 
     private void initComponentes(){
-        this.jPLogin = new JPLogin();
+        this.jPSplash = new JPSplash(this);
+        //this.jPLogin = new JPLogin();
         this.jPCrearCuenta = new JPCrearCuenta();
-        this.setContentPane(this.jPLogin);
+        this.setContentPane(this.jPSplash);
     }
 
     public void mostrar(){
         this.setVisible(true);
+    }
+
+    public void configPanelLogin(){
+        this.jPLogin = new JPLogin();
+        this.setContentPane(this.jPLogin);
+        this.revalidate();
+        this.repaint();
+
+        new UsuarioController(this, new UsuarioBD());
     }
 }

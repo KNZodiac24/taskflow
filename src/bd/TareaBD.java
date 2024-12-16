@@ -15,8 +15,8 @@ public class TareaBD {
     public boolean registrarTarea(Tarea tarea){
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
-        String sql = "INSERT INTO TAREA (NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, NOM_USR) "
-                + "VALUES (?,?, NOW(),?,?)";
+        String sql = "INSERT INTO TAREA (NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, ESTA_COMPLETADA, NOM_USR) "
+                + "VALUES (?, ?, NOW(), ?, FALSE, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, tarea.getNombre());

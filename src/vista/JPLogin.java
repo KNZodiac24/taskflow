@@ -7,11 +7,15 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.RenderingHints.Key;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
 import java.io.File;
+import java.io.ObjectInputFilter.Config;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +29,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import utils.Configuracion;
 
 public class JPLogin extends JPanel{
     public JTextField jTFUsername;
@@ -46,15 +52,15 @@ public class JPLogin extends JPanel{
         jLNombreApp.setBounds(75, 38, 350, 100);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
-            File f = new File("rsc/fuentes/RemachineScript.ttf");
+            File f = new File(System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"fuentes"+File.separator+"RemachineScript.ttf");
             Font fuente = Font.createFont(Font.TRUETYPE_FONT, f);
             ge.registerFont(fuente);
 
-            f = new File("rsc/fuentes/YouTubeSansMedium.otf");
+            f = new File(System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"fuentes"+File.separator+"YouTubeSansMedium.otf");
             fuente = Font.createFont(Font.TRUETYPE_FONT, f);
             ge.registerFont(fuente);
  
-            f = new File("rsc/fuentes/YouTubeSansSemibold.otf");
+            f = new File(System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"fuentes"+File.separator+"YouTubeSansSemibold.otf");
             fuente = Font.createFont(Font.TRUETYPE_FONT, f);
             ge.registerFont(fuente);
         } catch (Exception e){
@@ -88,21 +94,23 @@ public class JPLogin extends JPanel{
         this.jPFContrasenia.setMargin(new Insets(0, 10, 0, 0));
         this.add(this.jPFContrasenia);
 
+        String rutaImgEsconder = System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"img"+File.separator+"esconder.png";
+        String rutaImgMostrar = System.getProperty("user.home")+File.separator+".taskflow"+File.separator+"rsc"+File.separator+"img"+File.separator+"mostrar.png";
         JLabel jLVerContrasenia = new JLabel();
         jLVerContrasenia.setBounds(385, 290, 30, 30);
-        setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
+        setImageLabel(jLVerContrasenia, rutaImgEsconder);
         jLVerContrasenia.setHorizontalAlignment(SwingConstants.CENTER);
         jLVerContrasenia.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e){
-                setImageLabel(jLVerContrasenia, "rsc/img/mostrar.png");
+                setImageLabel(jLVerContrasenia, rutaImgMostrar);
                 jPFContrasenia.setFont(new Font("YouTube Sans", Font.PLAIN, 20));
                 jPFContrasenia.setEchoChar((char)0);
             }
 
             @Override
             public void mouseExited(MouseEvent e){
-                setImageLabel(jLVerContrasenia, "rsc/img/esconder.png");
+                setImageLabel(jLVerContrasenia, rutaImgEsconder);
                 jPFContrasenia.setFont(new Font("Arial", Font.PLAIN, 20));
                 jPFContrasenia.setEchoChar('•');
             }

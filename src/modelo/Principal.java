@@ -1,18 +1,21 @@
 package modelo;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import bd.UsuarioBD;
-import controlador.TareaController;
 import controlador.UsuarioController;
-import vista.JDAgregarTarea;
+import utils.Configuracion;
 import vista.JFLogin;
-import vista.JFTaskFlow;
 
 public class Principal {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
         JFLogin frmLogin = new JFLogin();
         UsuarioBD usuarioBD = new UsuarioBD(); 
-        UsuarioController usuarioCtr = new UsuarioController(frmLogin, usuarioBD);
-
+        Configuracion config = Configuracion.getInstancia(frmLogin.jPSplash);
         frmLogin.mostrar();
+        config.configurarPrograma();
+
     }
 }
