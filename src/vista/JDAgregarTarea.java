@@ -8,13 +8,21 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
+
+import java.util.Date;
+import java.util.Locale;
+import java.util.Properties;
 
 public class JDAgregarTarea extends JDialog {
     public JTextField jTFNombreTarea;
@@ -94,7 +102,7 @@ public class JDAgregarTarea extends JDialog {
                 }
             }
         });
-        this.add(this.jTFFechaCulminacion);
+        //this.add(this.jTFFechaCulminacion);
 
         // Para el botón de agregar tarea
         this.jBAgregarTarea = new JButton("Agregar tarea");
@@ -102,6 +110,28 @@ public class JDAgregarTarea extends JDialog {
         this.jBAgregarTarea.setBounds(180, 355, 130, 40);
         this.jBAgregarTarea.setFocusable(false);
         this.add(this.jBAgregarTarea);
+
+        
+        JDateChooser dateChooser = new JDateChooser();
+        //dateChooser.setDate(new Date()); // Fecha inicial (hoy)
+        dateChooser.setDateFormatString("dd/MM/yyyy"); // Formato de fecha
+        JTextField dateTextField = ((JTextField) dateChooser.getDateEditor().getUiComponent());
+        dateTextField.setEditable(false);
+        dateTextField.setFocusable(false);
+        dateChooser.setBounds(220, 310, 250, 30);
+        this.add(dateChooser);
+
+        // Botón para obtener la fecha seleccionada
+        JButton btnGetDate = new JButton("Obtener Fecha");
+        btnGetDate.setBounds(0, 100, 100, 30);
+        btnGetDate.addActionListener(e -> {
+            Date selectedDate = dateChooser.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(selectedDate);
+            JOptionPane.showMessageDialog(this, "Fecha seleccionada: " + formattedDate);
+        });
+        add(btnGetDate);
+
     }
 
     public void mostrar(){
