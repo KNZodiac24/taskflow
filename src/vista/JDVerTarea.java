@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -89,11 +90,15 @@ public class JDVerTarea extends JDialog implements ActionListener {
         // Si se presionó en el botón de Eliminar tarea
         if(e.getSource() == this.jBEliminarTarea){
             if(JOptionPane.showConfirmDialog(null, "¿Estás seguro/a de querer eliminar esta tarea?", "Eliminar tarea", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                if(tareaBD.eliminarTarea(this.tarea.getNombre(), this.tarea.getNomUsr())){
-                    JOptionPane.showMessageDialog(null, "Se ha eliminado la tarea exitosamente.", "Eliminar tarea", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                    TareaController.cargarListaTareas();
-                } 
+                try{
+                    if(tareaBD.eliminarTarea(this.tarea.getNombre(), this.tarea.getNomUsr())){
+                        JOptionPane.showMessageDialog(null, "Se ha eliminado la tarea exitosamente.", "Eliminar tarea", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                        TareaController.cargarListaTareas();
+                    }
+                } catch(SQLException ex){
+                    System.out.println(ex);
+                }
             }
         }
     }

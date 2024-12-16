@@ -12,7 +12,7 @@ import modelo.Tarea;
 
 public class TareaBD {
 
-    public boolean registrarTarea(Tarea tarea){
+    public boolean registrarTarea(Tarea tarea) throws SQLException{
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
         String sql = "INSERT INTO TAREA (NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, ESTA_COMPLETADA, NOM_USR) "
@@ -28,11 +28,13 @@ public class TareaBD {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al agregar la tarea.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
             return false;
+        } finally {
+            con.close();
         }
         
     }
 
-    public ArrayList<Tarea> traerListaTareasUsuario(String nomUsr, int criterio){
+    public ArrayList<Tarea> traerListaTareasUsuario(String nomUsr, int criterio) throws SQLException{
         ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
@@ -48,7 +50,7 @@ public class TareaBD {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR"), rs.getBoolean("ESTA_COMPLETADA")));
             }
 
             if(listaTareasUsuario.isEmpty()) return null;
@@ -56,10 +58,12 @@ public class TareaBD {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo traer la lista de tareas.", "TaskFlow", JOptionPane.ERROR_MESSAGE);
             return null;
-        } 
+        } finally {
+            con.close();
+        }
     }
 
-    public ArrayList<Tarea> traerListaTareasUsuarioPorRangoFechas(String nomUsr, String fechaInicio, String fechaFin){
+    public ArrayList<Tarea> traerListaTareasUsuarioPorRangoFechas(String nomUsr, String fechaInicio, String fechaFin) throws SQLException{
         ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
@@ -73,7 +77,7 @@ public class TareaBD {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR")));
+                listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR"), rs.getBoolean("ESTA_COMPLETADA")));
             }
 
             if(listaTareasUsuario.isEmpty()) return null;
@@ -81,10 +85,12 @@ public class TareaBD {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo traer la lista de tareas.", "TaskFlow", JOptionPane.ERROR_MESSAGE);
             return null;
+        } finally {
+            con.close();
         } 
     }
 
-    public boolean eliminarTarea(String nombreTarea, String nomUsr){
+    public boolean eliminarTarea(String nombreTarea, String nomUsr) throws SQLException{
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
         String sql = "DELETE FROM TAREA WHERE NOMBRE_TAREA = ? AND NOM_USR = ?";
@@ -97,6 +103,26 @@ public class TareaBD {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la tarea.", "Eliminar tarea", JOptionPane.ERROR_MESSAGE);
             return false;
+        } finally {
+            con.close();
+        }
+    }
+
+    public boolean actualizarTareaCompletada(Tarea tarea) throws SQLException{
+        PreparedStatement ps = null;
+        Connection con = Conexion.getConexion();
+        String sql = "UPDATE TAREA SET ESTA_COMPLETADA = TRUE WHERE NOMBRE_TAREA = ? AND NOM_USR = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, tarea.getNombre());
+            ps.setString(2, tarea.getNomUsr());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la tarea.", "Actualizar tarea", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } finally {
+            con.close();
         }
     }
 } 

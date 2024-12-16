@@ -9,6 +9,7 @@ public class Tarea {
     private Date fechaCulminacion;
     private Timestamp fechaYHoraCreacion;
     private String nomUsr;
+    private boolean estaCompletada;
 
     public Tarea(String nombre, String descripcion, Date fechaCulminacion, String nomUsr){
         this.nombre = nombre;
@@ -17,12 +18,13 @@ public class Tarea {
         this.nomUsr = nomUsr;
     }  
 
-    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Timestamp fechaYHoraCreacion, String nomUsr){
+    public Tarea(String nombre, String descripcion, Date fechaCulminacion, Timestamp fechaYHoraCreacion, String nomUsr, boolean estaCompletada){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCulminacion = fechaCulminacion;
         this.fechaYHoraCreacion = fechaYHoraCreacion;
         this.nomUsr = nomUsr;
+        this.estaCompletada = estaCompletada;
     }
 
 	public String getNombre() {
@@ -63,6 +65,14 @@ public class Tarea {
 
     public Timestamp getFechaYHoraCreacion(){
         return fechaYHoraCreacion;
+    }
+
+    public void setEstaCompletada(boolean estaCompletada){
+        this.estaCompletada = estaCompletada;
+    }
+
+    public boolean estaCompletada(){
+        return this.estaCompletada;
     }
 
     public String darFechaDeCulminacion(){

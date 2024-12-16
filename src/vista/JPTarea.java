@@ -10,6 +10,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -33,13 +34,11 @@ public class JPTarea extends JPanel {
     private Tarea tarea;
     private boolean haPasadoUnMinuto;
     private JLabel jLTareaCompletada;
-    private boolean estaCompletada;
 
     public JPTarea(Tarea tarea){
         this.setPreferredSize(new Dimension(1024, 75));
         this.setLayout(null);
         this.tarea = tarea;
-        this.estaCompletada = false;
 
         initComponentes();
         aplicarEstilos();
@@ -114,23 +113,37 @@ public class JPTarea extends JPanel {
             this.setBackground(new Color(242, 240, 90));
         }
 
-        if(this.estaCompletada) this.setBackground(new Color(107, 208, 255));
+        if(this.tarea.estaCompletada()) this.setBackground(new Color(54, 129, 169));
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e){
                 if(Fecha.haPasadoUnMinuto(tarea.getFechaYHoraCreacion())) setBackground(new Color(245, 245, 245));
                 else setBackground(new Color(201, 200, 131));
-
-                jLTareaCompletada.setVisible(true);
-            }     
+                
+                
+                if(tarea.estaCompletada()) {
+                    setBackground(new Color(36, 85, 112));
+                    jLTareaCompletada.setVisible(false);
+                }else{
+                    jLTareaCompletada.setVisible(true);
+                }
+                
+            } 
 
             @Override
             public void mouseExited(MouseEvent e){
                 if (Fecha.haPasadoUnMinuto(tarea.getFechaYHoraCreacion())) setBackground(Color.WHITE);
                 else setBackground(new Color(242, 240, 90));
 
-                jLTareaCompletada.setVisible(false);
+                
+                if(tarea.estaCompletada()) {
+                    setBackground(new Color(54, 129, 169));
+                    jLTareaCompletada.setVisible(false);
+                }else{
+                    jLTareaCompletada.setVisible(false);
+                }
+
             }
 
         });
@@ -162,9 +175,13 @@ public class JPTarea extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int eleccion = JOptionPane.showConfirmDialog(null, "¿Deseas marcar como completada esta tarea?\n\nLas tareas completadas se eliminan de la lista de tareas pendientes", "Marcar tarea completada", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if(eleccion == JOptionPane.YES_OPTION){
-                    setBackground(new Color(107, 208, 255));
-                    estaCompletada = true;
-                    TareaController.cargarListaTareas();
+                    try {
+                        TareaBD tareaBD = new TareaBD();
+                        tareaBD.actualizarTareaCompletada(tarea);
+                        TareaController.cargarListaTareas();
+                    } catch (SQLException ex){
+                        System.out.println(ex);
+                    }
                 }
             }
         });

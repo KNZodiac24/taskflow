@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -23,7 +24,7 @@ public class TareaController implements ActionListener{
     private JDAgregarTarea frmAgregarTarea;
     private static TareaBD tareaBD;
 
-    public TareaController(JFTaskFlow frmTaskFlow, JDAgregarTarea frmAgregarTarea, TareaBD tareaBD){
+    public TareaController(JFTaskFlow frmTaskFlow, JDAgregarTarea frmAgregarTarea, TareaBD tareaBD) throws SQLException{
         this.frmTaskFlow = frmTaskFlow;
         this.frmAgregarTarea = frmAgregarTarea;
         this.tareaBD = tareaBD;
@@ -52,11 +53,14 @@ public class TareaController implements ActionListener{
                             if(Fecha.verificarFechaMayorALaActual(fechaTemp.toString()) >= 0){
                                 Date fechaCulminacionTarea = Date.valueOf(fechaTemp.getFechaConFormatoValidoEnBD());
                                 Tarea tarea = new Tarea(nombreTarea, descripcionTarea, fechaCulminacionTarea, frmTaskFlow.getUsuarioActual().getNombreUsuario());
-                            
-                                if(tareaBD.registrarTarea(tarea)){
-                                    JOptionPane.showMessageDialog(null, "¡Se agregó correctamente la tarea!", "Agregar tarea", JOptionPane.INFORMATION_MESSAGE);
-                                    frmAgregarTarea.dispose();
-                                    cargarListaTareas();
+                                try {
+                                    if(tareaBD.registrarTarea(tarea)){
+                                        JOptionPane.showMessageDialog(null, "¡Se agregó correctamente la tarea!", "Agregar tarea", JOptionPane.INFORMATION_MESSAGE);
+                                        frmAgregarTarea.dispose();
+                                        cargarListaTareas();
+                                    }
+                                } catch (SQLException ex){
+                                    System.out.println(ex);
                                 }
                             }else{
                                 JOptionPane.showMessageDialog(null, "La fecha de culminación debe ser mayor a la fecha actual.", "Agregar tarea", JOptionPane.ERROR_MESSAGE);
@@ -78,11 +82,15 @@ public class TareaController implements ActionListener{
 
         // Si se presiona en alguna opción del comboBox
         if(e.getSource() == frmTaskFlow.jCBOrdenLista){
-            cargarListaTareas();
+            try {
+                cargarListaTareas();
+            } catch (SQLException ex){
+                System.out.println(ex);
+            }
         }
     }
 
-    public static void cargarListaTareas(){
+    public static void cargarListaTareas() throws SQLException {
         ArrayList<Tarea> listaTareas = new ArrayList<Tarea>(); 
         int criterio = frmTaskFlow.jCBOrdenLista.getSelectedIndex();
         
