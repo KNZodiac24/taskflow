@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import modelo.Tarea;
+import utils.Fecha;
 
 public class TareaBD {
 
@@ -49,7 +50,7 @@ public class TareaBD {
             ps.setString(1, nomUsr);
             rs = ps.executeQuery();
             
-            while (rs.next()) {
+            while (rs.next() && Fecha.verificarFechaMayorALaActual(Fecha.remplazarFormatoDeGuionASlash(rs.getDate("FECHA_CULMINACION").toString())) != 0) {
                 listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR"), rs.getBoolean("ESTA_COMPLETADA")));
             }
 
@@ -76,7 +77,7 @@ public class TareaBD {
             ps.setString(3, fechaFin);
             rs = ps.executeQuery();
             
-            while (rs.next()) {
+            while (rs.next() && Fecha.verificarFechaMayorALaActual(Fecha.remplazarFormatoDeGuionASlash(rs.getDate("FECHA_CULMINACION").toString())) != 0) {
                 listaTareasUsuario.add(new Tarea(rs.getString("NOMBRE_TAREA"), rs.getString("DESCRIPCION"), rs.getDate("FECHA_CULMINACION"), rs.getTimestamp("FECHA_HORA_CREACION"), rs.getString("NOM_USR"), rs.getBoolean("ESTA_COMPLETADA")));
             }
 

@@ -110,6 +110,11 @@ public class Fecha {
         return this.anio + "-" + this.mes + "-" + this.dia;  
     }
 
+    public static String remplazarFormatoDeGuionASlash(String fechaConGuiones){
+        String[] fechaConFormatoBD = fechaConGuiones.split("-");
+        return fechaConFormatoBD[2]+"/"+fechaConFormatoBD[1]+"/"+fechaConFormatoBD[0]; 
+    }
+
     @Override
     public String toString(){
         return this.dia + "/" + this.mes + "/" + this.anio;
