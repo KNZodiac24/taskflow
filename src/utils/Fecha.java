@@ -68,13 +68,13 @@ public class Fecha {
 
     public static int verificarFechaMayorALaActual(String fechaAComparar) throws NullPointerException {
         Date fechaActual = new Date();
-        Date fechaComparar = null;
+        Date fechaComparar = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         formato.setLenient(false);
         
         try {
             fechaComparar = formato.parse(fechaAComparar);
-        }catch (ParseException e){
+        }catch (ParseException | NullPointerException e){
             System.out.println(e);
         }
 

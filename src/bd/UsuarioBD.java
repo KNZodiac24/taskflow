@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class UsuarioBD {
 
-    public boolean registrarUsuario(String nombreUsuario, String nombrePreferido, String contrasenia) throws SQLException{
+    public boolean registrarUsuario(String nombreUsuario, String nombrePreferido, String contrasenia) throws SQLException, NullPointerException{
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
         String sql = "INSERT INTO USUARIO (NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA) "
@@ -26,13 +26,13 @@ public class UsuarioBD {
             else JOptionPane.showMessageDialog(null, "Error al crear la cuenta", "Crear cuenta", JOptionPane.ERROR_MESSAGE);
             return false;
         } finally {
+            if(ps != null) ps.close();
             con.close();
-            ps.close();
         }
         
     }
     
-    public boolean validarExistencia(String nombreUsuario, String contrasenia) throws SQLException {
+    public boolean validarExistencia(String nombreUsuario, String contrasenia) throws SQLException, NullPointerException {
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
         ResultSet rs = null;
@@ -50,9 +50,9 @@ public class UsuarioBD {
             System.err.println(e + " No se pudo conectar");
             return false;
         } finally {
-            ps.close();
-            rs.close();
+            if(ps != null) ps.close();
             con.close();
+            if(rs != null) rs.close();
         } 
     }
 }

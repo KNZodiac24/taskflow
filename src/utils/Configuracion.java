@@ -12,7 +12,7 @@ import vista.JPSplash;
 
 public class Configuracion {
     private String pathConfig;
-    private static volatile Configuracion instancia;
+    private static Configuracion instancia;
     private int progresoConfig = 0;
     private JPSplash splash;
 
@@ -20,14 +20,11 @@ public class Configuracion {
         this.splash = splash;
     }
 
-    public static Configuracion getInstancia(JPSplash splash){
+    public static synchronized Configuracion getInstancia(JPSplash splash){
         if (instancia == null) {
-            synchronized (Configuracion.class) {
-                if (instancia == null) {
-                    instancia = new Configuracion(splash);
-                }
-            }
+            instancia = new Configuracion(splash);
         }
+
         return instancia;
     }
 

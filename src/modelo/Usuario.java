@@ -24,7 +24,7 @@ public class Usuario {
 		this.nombrePreferido = nombrePreferido;
 	}
 
-    public boolean obtenerDatos(String nombreUsr) throws SQLException {
+    public boolean obtenerDatos(String nombreUsr) throws SQLException, NullPointerException {
         Connection con = Conexion.getConexion(); 
         ResultSet rs = null;
         String sql = "SELECT NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA FROM USUARIO WHERE NOMBRE_USUARIO = ?";
@@ -44,9 +44,9 @@ public class Usuario {
             System.err.println(e + " No se pudo conectar");
             return false;
         } finally {
-            ps.close();
-            rs.close();
+            if(ps != null) ps.close();
             con.close();
+            if(rs != null) rs.close();
         } 
     }
 }

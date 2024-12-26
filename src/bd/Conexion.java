@@ -8,13 +8,12 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
     private static Connection con = null;
-
-    private Conexion (){
-        String BASE = "taskflow";
-        String USER = "root";
-        String PASSWORD = "root";
-        String URL = "jdbc:mysql://127.0.0.1:3306/"+BASE;
-        
+    private static final String BASE = "taskflow";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/"+BASE;
+    
+    private Conexion (){ 
         try{
             con = DriverManager.getConnection(URL, USER, PASSWORD);
         }catch(SQLException e){
