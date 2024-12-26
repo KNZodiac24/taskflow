@@ -22,7 +22,8 @@ public class UsuarioBD {
             ps.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al crear la cuenta", "Crear cuenta", JOptionPane.ERROR_MESSAGE);
+            if(e.getMessage().startsWith("Duplicate entry")) JOptionPane.showMessageDialog(null, "El nombre de usuario '"+nombreUsuario+"' ya está en uso.", "Crear cuenta", JOptionPane.ERROR_MESSAGE);
+            else JOptionPane.showMessageDialog(null, "Error al crear la cuenta", "Crear cuenta", JOptionPane.ERROR_MESSAGE);
             return false;
         } finally {
             con.close();

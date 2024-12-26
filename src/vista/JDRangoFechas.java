@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.toedter.calendar.JDateChooser;
+
 import controlador.TareaController;
 import utils.Fecha;
 
@@ -46,59 +48,31 @@ public class JDRangoFechas extends JDialog implements ActionListener {
         jLDesde.setFont(new Font("YouTube Sans", Font.PLAIN, 18));
         this.add(jLDesde);
 
-        this.jTFFechaInicio = new JTextField("dd/mm/aaaa");
-        this.jTFFechaInicio.setBounds(85, 20, 125, 30);
-        this.jTFFechaInicio.setFont(new Font("YouTube Sans", Font.PLAIN, 16));
-        this.jTFFechaInicio.setMargin(new Insets(0, 10, 0, 0));
-        this.jTFFechaInicio.setForeground(Color.GRAY);
-        this.jTFFechaInicio.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (jTFFechaInicio.getText().equals("dd/mm/aaaa")) {
-                    jTFFechaInicio.setText("");
-                    jTFFechaInicio.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (jTFFechaInicio.getText().isEmpty()) {
-                    jTFFechaInicio.setText("dd/mm/aaaa");
-                    jTFFechaInicio.setForeground(Color.GRAY);
-                }
-            }
-        });
-        this.add(this.jTFFechaInicio);
+        JDateChooser dateChooserFechaInicio = new JDateChooser();
+        dateChooserFechaInicio.setDateFormatString("dd/MM/yyyy");
+        JTextField dateTextFieldFechaInicio = ((JTextField) dateChooserFechaInicio.getDateEditor().getUiComponent());
+        dateTextFieldFechaInicio.setEditable(false);
+        dateTextFieldFechaInicio.setFocusable(false);
+        dateTextFieldFechaInicio.setFont(new Font("YouTube Sans", Font.PLAIN, 16));
+        this.jTFFechaInicio = dateTextFieldFechaInicio;
+        dateChooserFechaInicio.setBounds(85, 20, 125, 30);
+        this.add(dateChooserFechaInicio);
 
         // Fecha fin
         JLabel jLHasta = new JLabel("Hasta:");
         jLHasta.setBounds(30, 55, 50, 40);
         jLHasta.setFont(new Font("YouTube Sans", Font.PLAIN, 18));
         this.add(jLHasta);
-
-        this.jTFFechaFin = new JTextField("dd/mm/aaaa");
-        this.jTFFechaFin.setBounds(85, 60, 125, 30);
-        this.jTFFechaFin.setFont(new Font("YouTube Sans", Font.PLAIN, 16));
-        this.jTFFechaFin.setMargin(new Insets(0, 10, 0, 0));
-        this.jTFFechaFin.setForeground(Color.GRAY);
-        this.jTFFechaFin.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (jTFFechaFin.getText().equals("dd/mm/aaaa")) {
-                    jTFFechaFin.setText("");
-                    jTFFechaFin.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (jTFFechaFin.getText().isEmpty()) {
-                    jTFFechaFin.setText("dd/mm/aaaa");
-                    jTFFechaFin.setForeground(Color.GRAY);
-                }
-            }
-        });
-        this.add(this.jTFFechaFin);
+        
+        JDateChooser dateChooserFechaFin = new JDateChooser();
+        dateChooserFechaFin.setDateFormatString("dd/MM/yyyy");
+        JTextField dateTextFieldFechaFin = ((JTextField) dateChooserFechaFin.getDateEditor().getUiComponent());
+        dateTextFieldFechaFin.setEditable(false);
+        dateTextFieldFechaFin.setFocusable(false);
+        dateTextFieldFechaFin.setFont(new Font("YouTube Sans", Font.PLAIN, 16));
+        this.jTFFechaFin = dateTextFieldFechaFin;
+        dateChooserFechaFin.setBounds(85, 60, 125, 30);
+        this.add(dateChooserFechaFin);
 
         // Botón para aceptar el rango
         this.jBAceptarRango = new JButton("Aceptar");

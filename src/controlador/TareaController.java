@@ -46,7 +46,7 @@ public class TareaController implements ActionListener{
             String nombreTarea = frmAgregarTarea.jTFNombreTarea.getText();
             String descripcionTarea = frmAgregarTarea.jTADescripcionTarea.getText();
             Fecha fechaTemp = new Fecha(frmAgregarTarea.jTFFechaCulminacion.getText());
-            if(!nombreTarea.isBlank() && !nombreTarea.isEmpty() && !descripcionTarea.isBlank() && !descripcionTarea.isEmpty()){
+            if(!nombreTarea.isBlank() && !nombreTarea.isEmpty() && !descripcionTarea.isBlank() && !descripcionTarea.isEmpty() && !fechaTemp.isBlank() && !fechaTemp.isEmpty()){
                 if(nombreTarea.length() <= 30){
                     if(descripcionTarea.length() <= 200){
                         if (fechaTemp.esFechaValida()){

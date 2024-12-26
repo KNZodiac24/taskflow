@@ -15,5 +15,4 @@ cd ..
 cd JCalendar
 Remove-Item -Recurse -Force com
 Remove-Item -Recurse -Force META-INF
-Get-ChildItem -File | Where-Object { $_.Name -notin "jcalendar-1.4.jar" } | Remove-Item
 cd ../..

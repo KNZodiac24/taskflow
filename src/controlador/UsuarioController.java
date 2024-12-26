@@ -55,22 +55,26 @@ public class UsuarioController implements ActionListener{
             String username = frmLogin.jPLogin.jTFUsername.getText();
             String contrasenia = String.valueOf(frmLogin.jPLogin.jPFContrasenia.getPassword());
             
-            try {
-                if(usuarioBD.validarExistencia(username, contrasenia)){
-                    Usuario usuarioActual = new Usuario();
-                    usuarioActual.obtenerDatos(username);
-                    JFTaskFlow frmTaskFlow = new JFTaskFlow(usuarioActual);
-                    JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
-                    TareaBD tareaBD = new TareaBD();
-                    TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea, tareaBD);
-                    frmLogin.dispose();
-                    frmTaskFlow.mostrar();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos.", "Inicio de sesión", JOptionPane.ERROR_MESSAGE);
-                    frmLogin.jPLogin.jTFUsername.requestFocus();
+            if(!username.isBlank() && !username.isEmpty() && !contrasenia.isBlank() && !contrasenia.isEmpty()){
+                try {
+                    if(usuarioBD.validarExistencia(username, contrasenia)){
+                        Usuario usuarioActual = new Usuario();
+                        usuarioActual.obtenerDatos(username);
+                        JFTaskFlow frmTaskFlow = new JFTaskFlow(usuarioActual);
+                        JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
+                        TareaBD tareaBD = new TareaBD();
+                        TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea, tareaBD);
+                        frmLogin.dispose();
+                        frmTaskFlow.mostrar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos.", "Inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                        frmLogin.jPLogin.jTFUsername.requestFocus();
+                    }
+                } catch (SQLException ex){
+                    System.out.println(ex);
                 }
-            } catch (SQLException ex){
-                System.out.println(ex);
+            }else {
+                JOptionPane.showMessageDialog(null, "Por favor, completar todos los campos.", "Inicio de sesión", JOptionPane.ERROR_MESSAGE);
             }
         }
 
