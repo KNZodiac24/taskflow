@@ -2,17 +2,10 @@ package utils;
 
 import java.util.regex.Pattern;
 
-
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 
 
@@ -28,7 +21,7 @@ public class Fecha {
 
     public boolean esFechaValida() {
         // Expresión regular para el formato dd/mm/aaaa
-        String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(\\d{4})$";
+        String regex = "^(0[1-9]|[12]\\d|3[01])/(0[1-9]|1[0-2])/(\\d{4})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(this.entrada);
         
@@ -73,7 +66,7 @@ public class Fecha {
         }
     }
 
-    public static int verificarFechaMayorALaActual(String fechaAComparar){
+    public static int verificarFechaMayorALaActual(String fechaAComparar) throws NullPointerException {
         Date fechaActual = new Date();
         Date fechaComparar = null;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");

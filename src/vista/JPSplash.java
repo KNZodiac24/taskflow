@@ -3,14 +3,10 @@ package vista;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
-import vista.JFLogin;
-
 
 public class JPSplash extends JPanel {
     private JProgressBar jPBBarra;
@@ -38,9 +34,7 @@ public class JPSplash extends JPanel {
     }
 
     public void setProgresoBarra(int progreso) {
-        SwingUtilities.invokeLater(() -> {
-            this.jPBBarra.setValue(progreso);
-        });
+        SwingUtilities.invokeLater(() -> this.jPBBarra.setValue(progreso));
     }
 
     public void mostrar(){

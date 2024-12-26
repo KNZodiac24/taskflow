@@ -24,11 +24,11 @@ public class Usuario {
 		this.nombrePreferido = nombrePreferido;
 	}
 
-    public boolean obtenerDatos(String nombreUsr){
+    public boolean obtenerDatos(String nombreUsr) throws SQLException {
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
-        ResultSet rs;
-        String sql = "SELECT * FROM USUARIO WHERE NOMBRE_USUARIO = ?";
+        ResultSet rs = null;
+        String sql = "SELECT NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA FROM USUARIO WHERE NOMBRE_USUARIO = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombreUsr);
@@ -43,6 +43,10 @@ public class Usuario {
         } catch (SQLException e) {
             System.err.println(e + " No se pudo conectar");
             return false;
+        } finally {
+            con.close();
+            ps.close();
+            rs.close();
         } 
     }
 }

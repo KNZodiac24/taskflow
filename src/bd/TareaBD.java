@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -31,18 +32,19 @@ public class TareaBD {
             return false;
         } finally {
             con.close();
+            ps.close();
         }
         
     }
 
-    public ArrayList<Tarea> traerListaTareasUsuario(String nomUsr, int criterio) throws SQLException{
-        ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
+    public List<Tarea> traerListaTareasUsuario(String nomUsr, int criterio) throws SQLException{
+        ArrayList<Tarea> listaTareasUsuario = new ArrayList<>();
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
-        ResultSet rs;
+        ResultSet rs = null;
         String sql = switch(criterio){ // 0: Fecha (ascendente), 1: Fecha (descendente)
-            case 0 -> "SELECT * FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION ASC";
-            case 1 -> "SELECT * FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION DESC";
+            case 0 -> "SELECT NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, ESTA_COMPLETADA, NOM_USR FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION ASC";
+            case 1 -> "SELECT NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, ESTA_COMPLETADA, NOM_USR FROM TAREA WHERE NOM_USR = ? ORDER BY FECHA_CULMINACION DESC";
             default -> null;
         };
         try {
@@ -61,15 +63,17 @@ public class TareaBD {
             return null;
         } finally {
             con.close();
+            ps.close();
+            rs.close();
         }
     }
 
-    public ArrayList<Tarea> traerListaTareasUsuarioPorRangoFechas(String nomUsr, String fechaInicio, String fechaFin) throws SQLException{
-        ArrayList<Tarea> listaTareasUsuario = new ArrayList<Tarea>();
+    public List<Tarea> traerListaTareasUsuarioPorRangoFechas(String nomUsr, String fechaInicio, String fechaFin) throws SQLException{
+        ArrayList<Tarea> listaTareasUsuario = new ArrayList<>();
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
-        ResultSet rs;
-        String sql = "SELECT * FROM TAREA WHERE NOM_USR = ? AND FECHA_CULMINACION BETWEEN ? AND ?";
+        ResultSet rs = null;
+        String sql = "SELECT NOMBRE_TAREA, DESCRIPCION, FECHA_HORA_CREACION, FECHA_CULMINACION, ESTA_COMPLETADA, NOM_USR FROM TAREA WHERE NOM_USR = ? AND FECHA_CULMINACION BETWEEN ? AND ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nomUsr);
@@ -88,6 +92,8 @@ public class TareaBD {
             return null;
         } finally {
             con.close();
+            ps.close();
+            rs.close();
         } 
     }
 
@@ -106,6 +112,7 @@ public class TareaBD {
             return false;
         } finally {
             con.close();
+            ps.close();
         }
     }
 
@@ -124,6 +131,7 @@ public class TareaBD {
             return false;
         } finally {
             con.close();
+            ps.close();
         }
     }
 } 

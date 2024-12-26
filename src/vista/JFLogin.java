@@ -1,16 +1,12 @@
 package vista;
 
-import java.awt.Dimension;
 import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import bd.UsuarioBD;
 import controlador.UsuarioController;
-import vista.JPSplash;
 
 public class JFLogin extends JFrame {
     public JPLogin jPLogin;
@@ -31,7 +27,6 @@ public class JFLogin extends JFrame {
 
     private void initComponentes(){
         this.jPSplash = new JPSplash(this);
-        //this.jPLogin = new JPLogin();
         this.jPCrearCuenta = new JPCrearCuenta();
         this.setContentPane(this.jPSplash);
     }

@@ -7,15 +7,10 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.RenderingHints.Key;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;
 import java.io.File;
-import java.io.ObjectInputFilter.Config;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,9 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
-import utils.Configuracion;
 
 public class JPLogin extends JPanel{
     public JTextField jTFUsername;

@@ -4,19 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
 import bd.TareaBD;
 import bd.UsuarioBD;
-import controlador.TareaController;
 import modelo.Usuario;
 import vista.JDAgregarTarea;
 import vista.JFLogin;
 import vista.JFTaskFlow;
-import vista.JPCrearCuenta;
 
 public class UsuarioController implements ActionListener{
     private JFLogin frmLogin;
@@ -63,7 +60,7 @@ public class UsuarioController implements ActionListener{
                         JFTaskFlow frmTaskFlow = new JFTaskFlow(usuarioActual);
                         JDAgregarTarea dialogAgregarTarea = new JDAgregarTarea();
                         TareaBD tareaBD = new TareaBD();
-                        TareaController tareaCtr = new TareaController(frmTaskFlow, dialogAgregarTarea, tareaBD);
+                        new TareaController(frmTaskFlow, dialogAgregarTarea, tareaBD);
                         frmLogin.dispose();
                         frmTaskFlow.mostrar();
                     }else{

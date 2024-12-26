@@ -27,6 +27,7 @@ public class UsuarioBD {
             return false;
         } finally {
             con.close();
+            ps.close();
         }
         
     }
@@ -34,8 +35,8 @@ public class UsuarioBD {
     public boolean validarExistencia(String nombreUsuario, String contrasenia) throws SQLException {
         PreparedStatement ps = null;
         Connection con = Conexion.getConexion();
-        ResultSet rs;
-        String sql = "SELECT * FROM USUARIO WHERE NOMBRE_USUARIO = ? AND CONTRASENIA = ?";
+        ResultSet rs = null;
+        String sql = "SELECT NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA FROM USUARIO WHERE NOMBRE_USUARIO = ? AND CONTRASENIA = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombreUsuario);
@@ -50,6 +51,8 @@ public class UsuarioBD {
             return false;
         } finally {
             con.close();
+            ps.close();
+            rs.close();
         } 
     }
 }

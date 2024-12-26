@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.sql.SQLException;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -32,7 +31,6 @@ public class JPTarea extends JPanel {
     private JLabel jLFechaCulminacion;
     public JSeparator jSSeparador;
     private Tarea tarea;
-    private boolean haPasadoUnMinuto;
     private JLabel jLTareaCompletada;
 
     public JPTarea(Tarea tarea){

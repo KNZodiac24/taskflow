@@ -1,14 +1,13 @@
 package controlador;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 import bd.TareaBD;
 import modelo.Tarea;
@@ -25,12 +24,12 @@ public class TareaController implements ActionListener{
     private static TareaBD tareaBD;
 
     public TareaController(JFTaskFlow frmTaskFlow, JDAgregarTarea frmAgregarTarea, TareaBD tareaBD) throws SQLException{
-        this.frmTaskFlow = frmTaskFlow;
+        TareaController.frmTaskFlow = frmTaskFlow;
         this.frmAgregarTarea = frmAgregarTarea;
-        this.tareaBD = tareaBD;
-        this.frmTaskFlow.jBAgregar.addActionListener(this);
+        TareaController.tareaBD = tareaBD;
+        TareaController.frmTaskFlow.jBAgregar.addActionListener(this);
         this.frmAgregarTarea.jBAgregarTarea.addActionListener(this);
-        this.frmTaskFlow.jCBOrdenLista.addActionListener(this);
+        TareaController.frmTaskFlow.jCBOrdenLista.addActionListener(this);
         cargarListaTareas();
     }
 
@@ -91,7 +90,7 @@ public class TareaController implements ActionListener{
     }
 
     public static void cargarListaTareas() throws SQLException {
-        ArrayList<Tarea> listaTareas = new ArrayList<Tarea>(); 
+        List<Tarea> listaTareas = new ArrayList<Tarea>(); 
         int criterio = frmTaskFlow.jCBOrdenLista.getSelectedIndex();
         
         if(criterio < 2) listaTareas = tareaBD.traerListaTareasUsuario(frmTaskFlow.getUsuarioActual().getNombreUsuario(), criterio);
