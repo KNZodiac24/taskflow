@@ -25,10 +25,10 @@ public class Usuario {
 	}
 
     public boolean obtenerDatos(String nombreUsr) throws SQLException {
-        PreparedStatement ps = null;
         Connection con = Conexion.getConexion(); 
         ResultSet rs = null;
         String sql = "SELECT NOMBRE_USUARIO, NOMBRE_PREFERIDO, CONTRASENIA FROM USUARIO WHERE NOMBRE_USUARIO = ?";
+        PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombreUsr);
@@ -44,9 +44,9 @@ public class Usuario {
             System.err.println(e + " No se pudo conectar");
             return false;
         } finally {
-            con.close();
             ps.close();
             rs.close();
+            con.close();
         } 
     }
 }

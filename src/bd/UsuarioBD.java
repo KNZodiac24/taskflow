@@ -50,9 +50,9 @@ public class UsuarioBD {
             System.err.println(e + " No se pudo conectar");
             return false;
         } finally {
-            con.close();
             ps.close();
             rs.close();
+            con.close();
         } 
     }
 }

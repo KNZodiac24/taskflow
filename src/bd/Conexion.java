@@ -22,8 +22,8 @@ public class Conexion {
         }
     }
     
-    public static Connection getConexion(){
-        if(con == null) new Conexion();
+    public static Connection getConexion() throws SQLException{
+        if(con == null || con.isClosed()) new Conexion();
 
         return con;
     }
